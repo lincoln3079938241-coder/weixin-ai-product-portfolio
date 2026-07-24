@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DriveMate｜Concept Proposal</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .concept-page{width:min(1120px,calc(100% - 2rem));min-height:calc(100vh - 2rem);margin:1rem auto;padding:clamp(2rem,5vw,4rem);background:#fff;border:1px solid var(--line);border-radius:20px}
+    .concept-page h1{font-size:clamp(3rem,8vw,6rem);margin:.6rem 0}
+    .concept-page h2{font-size:clamp(2rem,4vw,3.4rem)}
+    .concept-meta{display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font-size:.84rem}
+    .tool-grid,.wire-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem;margin:1.2rem 0}
+    .tool-grid div{padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+    .tool-grid b,.tool-grid small{display:block}.tool-grid small{color:var(--muted);margin-top:.35rem}
+    .wireframe{display:grid;grid-template-columns:240px 1fr;gap:1rem;padding:1rem;border:2px solid var(--ink);border-radius:18px;background:#f8fbfa}
+    .wire-side,.wire-main{border:1px solid #aebec4;border-radius:12px;padding:1rem;background:#fff}
+    .wire-chip{display:inline-block;margin:.2rem;padding:.32rem .5rem;background:#e6f3f2;border-radius:7px;font-size:.75rem}
+    .wire-card{margin:.65rem 0;padding:.75rem;border:1px solid #ccd8dc;border-radius:8px}
+    .wire-button{padding:.65rem;text-align:center;background:var(--ink);color:#fff;border-radius:8px}
+    @media(max-width:760px){.tool-grid{grid-template-columns:1fr 1fr}.wireframe{grid-template-columns:1fr}.concept-page{border-radius:0;margin:0;width:100%}}
+    @media print{
+      @page{size:A4;margin:0}
+      body{background:#fff}
+      .concept-page{width:210mm;height:297mm;min-height:0;margin:0;padding:14mm;border:0;border-radius:0;break-after:page;overflow:hidden}
+      .concept-page:last-child{break-after:auto}
+      .site-header{display:none}
+      .problem-value-grid{margin:7mm 0}.agent-architecture{margin:6mm 0}.journey{gap:3mm}
+      h1{font-size:32pt!important}h2{font-size:24pt!important}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">DM</span><span>返回作品集</span></a>
+    <nav><a href="assets/DriveMate-Concept-Proposal.pdf" class="nav-cta">下载PDF</a></nav>
+  </header>
+
+  <article class="concept-page">
+    <div class="concept-meta"><span>Concept Proposal / 创新产品概念方案</span><span>未开发上线</span></div>
+    <p class="eyebrow">AI + AUTOMOTIVE · MULTI-AGENT</p>
+    <h1>DriveMate</h1>
+    <p class="lead">面向城市通勤、家庭出行和长途驾驶用户的多Agent智能出行与车况助手。</p>
+    <div class="problem-value-grid four">
+      <article><span>痛点01</span><h3>行程信息分散</h3><p>地图、天气、日程与同行人安排彼此割裂。</p></article>
+      <article><span>痛点02</span><h3>车况难以理解</h3><p>电量、胎压和维保状态缺少面向普通用户的解释。</p></article>
+      <article><span>痛点03</span><h3>补能无法统筹</h3><p>路线、充电站、停留时间和到达目标需要联合规划。</p></article>
+      <article><span>痛点04</span><h3>助手缺少连续执行</h3><p>传统语音交互难以拆解并完成跨工具复合任务。</p></article>
+    </div>
+    <h3>产品方案与Agent协作</h3>
+    <div class="agent-architecture">
+      <div class="main-agent"><span>ORCHESTRATOR</span><strong>DriveMate 主Agent</strong><p>拆解任务、协调专业Agent、选择工具、汇总事实和推断，并在关键动作前请求确认。</p></div>
+      <div class="agent-grid">
+        <div><b>出行规划Agent</b><small>地图 / 交通 / 天气</small></div>
+        <div><b>车辆状态解释Agent</b><small>电量 / 胎压 / 维保状态</small></div>
+        <div><b>补能规划Agent</b><small>续航 / 充电站 / 停留时间</small></div>
+        <div><b>日程与提醒Agent</b><small>日程 / 出发提醒 / 到达目标</small></div>
+        <div><b>应急支持Agent</b><small>异常解释 / 道路救援 / 专业服务</small></div>
+      </div>
+    </div>
+    <h3>工具调用范围</h3>
+    <div class="tool-grid">
+      <div><b>地图和交通</b><small>路线、拥堵、预计用时</small></div>
+      <div><b>天气</b><small>降雨、温度、预警</small></div>
+      <div><b>用户日程</b><small>时间约束、提醒</small></div>
+      <div><b>车辆状态</b><small>电量、胎压、维保</small></div>
+      <div><b>充电站</b><small>位置、可用性、功率</small></div>
+    </div>
+    <p class="boundary-note"><b>典型任务：</b>“明天上午带家人从上海去苏州，帮我检查车辆状态、规划补能并结合日程安排出发时间。”</p>
+  </article>
+
+  <article class="concept-page">
+    <div class="concept-meta"><span>DriveMate · User Journey & Validation</span><span>Page 2 / 2</span></div>
+    <p class="eyebrow">USER JOURNEY</p>
+    <h2>从一句复合需求到可确认计划</h2>
+    <div class="journey">
+      <div><span>01</span><b>理解任务</b><p>识别目的地、同行人、时间和补能要求。</p></div>
+      <div><span>02</span><b>读取事实</b><p>日程、天气、交通、车辆与充电站数据。</p></div>
+      <div><span>03</span><b>协同规划</b><p>各Agent生成路线、出发窗口和补能候选。</p></div>
+      <div><span>04</span><b>风险确认</b><p>标注异常、来源、假设与需用户确认的动作。</p></div>
+      <div><span>05</span><b>输出计划</b><p>形成出发时间、路线、补能、提醒和应急建议。</p></div>
+    </div>
+    <div class="safety-metrics">
+      <div>
+        <p class="eyebrow">SAFETY BOUNDARY</p>
+        <h3>安全边界</h3>
+        <ul class="feature-list">
+          <li>不直接执行高风险车辆控制；</li>
+          <li>关键操作需用户确认；</li>
+          <li>区分车辆事实数据与模型推断；</li>
+          <li>车辆异常优先建议联系专业服务；</li>
+          <li>工具数据缺失或冲突时明确提示，不补造事实。</li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">EVALUATION</p>
+        <h3>评测指标</h3>
+        <div class="metric-cloud">
+          <span>任务完成率</span><span>工具调用准确率</span><span>信息事实性</span>
+          <span>用户确认次数</span><span>响应时间</span><span>用户满意度</span><span>高风险错误率</span>
+        </div>
+      </div>
+    </div>
+    <p class="eyebrow" style="margin-top:2rem">LOW-FIDELITY UI</p>
+    <h3>低保真页面示意</h3>
+    <div class="wireframe" aria-label="DriveMate低保真页面">
+      <aside class="wire-side">
+        <b>明日出行</b>
+        <div class="wire-card">上海 → 苏州<br><small>家庭出行 · 上午</small></div>
+        <span class="wire-chip">天气</span><span class="wire-chip">日程</span>
+        <span class="wire-chip">车辆</span><span class="wire-chip">补能</span>
+        <div class="wire-card">待确认事项<br><small>胎压异常解释<br>补能站候选</small></div>
+      </aside>
+      <section class="wire-main">
+        <b>DriveMate 计划摘要</b>
+        <div class="wire-card"><b>车辆状态</b><br>电量 68% · 胎压数据待确认 · 距维保里程 1,200 km</div>
+        <div class="wire-card"><b>建议出发</b><br>08:10 - 08:25 · 避开预计拥堵 · 与 11:00 日程兼容</div>
+        <div class="wire-card"><b>补能方案</b><br>方案A：途中快充 · 方案B：到达后补能</div>
+        <div class="wire-button">确认计划并创建提醒</div>
+      </section>
+    </div>
+    <p class="evidence-note">以上为概念设计，不代表已经接入车辆、地图、天气、日历或充电站API，也不代表已完成开发或上线。</p>
+  </article>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="陈蔚昕的AI产品经理作品集：AI Agent、数据产品与AI+汽车创新产品概念。">
+  <title>陈蔚昕｜AI产品经理作品集</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="返回首页">
+      <span class="brand-mark">WX</span>
+      <span>陈蔚昕 · AI Product</span>
+    </a>
+    <nav aria-label="主要导航">
+      <a href="#work">项目</a>
+      <a href="#method">方法</a>
+      <a href="#contact">联系</a>
+      <a class="nav-cta" href="assets/Chen-Weixin-AI-Product-Portfolio.pdf">PDF</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero section" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">AI PRODUCT MANAGER · CAMPUS RECRUITMENT PORTFOLIO</p>
+        <h1>陈蔚昕<br><span>AI产品经理 / AI创新产品</span></h1>
+        <p class="lead">具备AI Agent、数据产品和独立应用开发经验，能够完成用户问题识别、产品方案设计、Demo搭建、测试评估与迭代落地。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">查看项目</a>
+          <a class="button secondary" href="assets/Chen-Weixin-AI-Product-Portfolio.pdf">下载PDF作品集</a>
+        </div>
+        <p class="evidence-note">作品集只使用仓库可验证信息；不虚构模型调用、用户规模、访谈或业务效果。</p>
+      </div>
+      <div class="hero-panel" aria-label="能力概览">
+        <div class="radar-line"><span>PROBLEM</span><i></i><b>问题定义</b></div>
+        <div class="radar-line"><span>DESIGN</span><i></i><b>方案与原型</b></div>
+        <div class="radar-line"><span>BUILD</span><i></i><b>Demo落地</b></div>
+        <div class="radar-line"><span>EVALUATE</span><i></i><b>测试与迭代</b></div>
+        <div class="signal-card">
+          <span>FOCUS</span>
+          <strong>AI Agent × 数据产品 × AI+汽车</strong>
+          <small>从用户问题到可验证Demo</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" aria-labelledby="capability-title">
+      <div class="section-heading">
+        <p class="eyebrow">CAPABILITY MAP</p>
+        <h2 id="capability-title">能力地图</h2>
+      </div>
+      <div class="chip-grid">
+        <span>AI产品设计</span>
+        <span>用户场景拆解</span>
+        <span>Agent工作流</span>
+        <span>RAG与生成式AI理解</span>
+        <span>原型与Demo开发</span>
+        <span>数据分析与效果评估</span>
+        <span>AI Coding辅助开发</span>
+      </div>
+    </section>
+
+    <section class="section project" id="work" aria-labelledby="auto-title">
+      <div class="project-index">01 / CORE CASE</div>
+      <div class="project-header">
+        <div>
+          <p class="eyebrow">AI AGENT · PUBLIC DEMO</p>
+          <h2 id="auto-title">Auto-LifeOS</h2>
+          <p class="project-tagline">把饮食需求变成经过规则校验、双阶段确认和库存事务更新的可执行流程。</p>
+        </div>
+        <div class="project-links">
+          <a href="https://auto-lifeos-demo.streamlit.app/">公开Demo ↗</a>
+          <a href="https://github.com/lincoln3079938241-coder/auto-lifeos-demo">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="problem-value-grid">
+        <article>
+          <span>用户问题</span>
+          <h3>饮食建议与家中食材脱节</h3>
+          <p>用户得到一道菜后，仍需自行核对库存、过期状态、忌口和实际用量；文字建议也不应直接修改库存。</p>
+        </article>
+        <article>
+          <span>产品目标</span>
+          <h3>让建议可执行、可控、可回退</h3>
+          <p>自然语言需求经过检索、方案生成和确定性校验，只有两次明确确认后才触发库存事务。</p>
+        </article>
+        <article>
+          <span>公开边界</span>
+          <h3>默认Mock，无需私密Key</h3>
+          <p>公开版强制使用可复现Mock，不声称正在调用GPT、Qwen或其他真实模型；全部数据为synthetic/sample。</p>
+        </article>
+      </div>
+
+      <div class="visual-and-copy">
+        <figure class="screenshot-card">
+          <img src="assets/auto-lifeos-home.png" alt="Auto-LifeOS公开Demo首页，展示产品定位与需求输入流程">
+          <figcaption>公开Demo首页 · 桌面端</figcaption>
+        </figure>
+        <div>
+          <h3>核心功能</h3>
+          <ul class="feature-list">
+            <li>LangGraph节点编排、条件路由、校验重试与异常回退</li>
+            <li>TF-IDF知识检索与结构化MealPlan</li>
+            <li>库存、过敏、忌口、过期、单位和数量规则校验</li>
+            <li>方案确认 + 实际用量确认的双阶段确认</li>
+            <li>SQLite原子库存事务、审计记录与撤销</li>
+          </ul>
+          <div class="facts">
+            <span><b>61</b>公开版测试通过</span>
+            <span><b>27</b>核心仓库测试通过</span>
+            <span><b>28</b>结构化演示菜谱</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subheading">用户流程与Agent架构</h3>
+      <div class="flow" aria-label="Auto-LifeOS用户流程">
+        <span>需求输入</span><i>→</i><span>意图理解</span><i>→</i><span>检索与生成</span><i>→</i>
+        <span>规则校验</span><i>→</i><span>双确认</span><i>→</i><span>库存事务</span><i>→</i><span>追踪与回退</span>
+      </div>
+      <div class="boundary-grid">
+        <div>
+          <span class="mini-label">PROVIDER / MOCK</span>
+          <h4>提出结构化方案</h4>
+          <p>理解需求、组织检索证据、输出候选MealPlan；不拥有库存写权限。</p>
+        </div>
+        <div>
+          <span class="mini-label">RULES</span>
+          <h4>控制可执行性</h4>
+          <p>Pydantic与Python规则校验过敏、忌口、过期、单位、数量和营养范围。</p>
+        </div>
+        <div>
+          <span class="mini-label">TRANSACTION</span>
+          <h4>控制副作用</h4>
+          <p>双确认后由SQLite原子事务更新；失败整体回滚，成功结果可撤销。</p>
+        </div>
+      </div>
+      <div class="evaluation-panel">
+        <div>
+          <p class="eyebrow">TEST & BAD CASE</p>
+          <h3>评测不是“看起来能跑”</h3>
+        </div>
+        <p>自动化测试覆盖路由、别名、规则边界、双确认、事务原子性、撤销与会话隔离。合成Prompt对比观察结构解析、规则通过、幻觉食材、重试与可执行性；明确不等同于真实用户A/B测试。</p>
+        <div class="bad-cases">
+          <span>结构不合法</span><span>库存不足</span><span>过敏/忌口</span><span>食材过期</span>
+          <span>单位不兼容</span><span>需求不清</span><span>事务失败</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section project radar-project" aria-labelledby="radar-title">
+      <div class="project-index">02 / 0→1 DATA PRODUCT</div>
+      <div class="project-header">
+        <div>
+          <p class="eyebrow">DATA AUTOMATION · PUBLIC DEMO</p>
+          <h2 id="radar-title">2027届秋招岗位雷达</h2>
+          <p class="project-tagline">从分散招聘入口到可追溯、可筛选、可复核的岗位信息清单。</p>
+        </div>
+        <div class="project-links">
+          <a href="https://shanghai-2027-job-radar-demo.streamlit.app/">公开Demo ↗</a>
+          <a href="https://github.com/lincoln3079938241-coder/shanghai-2027-job-radar-demo">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="problem-value-grid four">
+        <article><span>痛点</span><h3>跨平台搜索成本高</h3><p>企业官网、公共就业服务和高校网站入口分散。</p></article>
+        <article><span>痛点</span><h3>岗位信息容易遗漏</h3><p>地点、方向、阶段和专业限制缺少统一表达。</p></article>
+        <article><span>数据问题</span><h3>来源与状态不透明</h3><p>转载可能重复或过时，需要保留来源与更新时间。</p></article>
+        <article><span>产品价值</span><h3>一次整理，持续筛选</h3><p>将公开线索转成结构化清单，降低重复劳动。</p></article>
+      </div>
+      <div class="visual-and-copy reverse">
+        <div>
+          <h3>核心能力</h3>
+          <ul class="feature-list">
+            <li>多来源配置与合规采集框架</li>
+            <li>清洗、统一字段、内容哈希、去重与变更检测</li>
+            <li>地区、岗位方向、阶段和专业限制规则筛选</li>
+            <li>来源、样例更新时间、验证状态和质量提示</li>
+            <li>缺少数据库或外部接口时自动进入脱敏样例模式</li>
+          </ul>
+          <p class="boundary-note"><b>能力边界：</b>这是数据自动化、规则筛选、信息管理和产品化展示项目；不包含Agent、大模型、智能推荐或岗位成功率功能。</p>
+          <div class="facts">
+            <span><b>14</b>自动化测试通过</span>
+            <span><b>9</b>脱敏样例记录</span>
+            <span><b>0</b>公开Demo所需密钥</span>
+          </div>
+        </div>
+        <figure class="screenshot-card">
+          <img src="assets/job-radar-home.png" alt="2027届秋招岗位雷达公开Demo首页与结构化筛选界面">
+          <figcaption>公开Demo · 脱敏样例模式</figcaption>
+        </figure>
+      </div>
+      <h3 class="subheading">数据流程</h3>
+      <div class="flow data-flow" aria-label="秋招岗位雷达数据流程">
+        <span>公开入口</span><i>→</i><span>合规采集/导入</span><i>→</i><span>清洗标准化</span><i>→</i>
+        <span>去重变更</span><i>→</i><span>规则筛选</span><i>→</i><span>质量提示</span><i>→</i><span>来源回查</span>
+      </div>
+      <div class="iteration-grid">
+        <div><b>MVP</b><p>来源配置、基础采集接口、清洗与统一字段。</p></div>
+        <div><b>规则化</b><p>毕业年份、地区、方向、阶段、专业限制、去重与变更检测。</p></div>
+        <div><b>公开版</b><p>无需数据库与Key的脱敏样例模式，补充来源和质量提示。</p></div>
+        <div><b>下一步</b><p>逐来源解析测试、异常告警、核验时间与状态变更日志。</p></div>
+      </div>
+    </section>
+
+    <section class="section project concept" aria-labelledby="drive-title">
+      <div class="project-index">03 / CONCEPT PROPOSAL</div>
+      <div class="concept-label">Concept Proposal / 创新产品概念方案 · 未开发上线</div>
+      <div class="project-header">
+        <div>
+          <p class="eyebrow">AI + AUTOMOTIVE · MULTI-AGENT CONCEPT</p>
+          <h2 id="drive-title">DriveMate</h2>
+          <p class="project-tagline">面向车主的多Agent智能出行与车况助手。</p>
+        </div>
+        <div class="project-links">
+          <a href="drivemate.html">查看2页概念方案 →</a>
+          <a href="assets/DriveMate-Concept-Proposal.pdf">下载概念PDF</a>
+        </div>
+      </div>
+      <div class="problem-value-grid four">
+        <article><span>目标用户</span><h3>城市通勤</h3><p>需要把路线、日程、天气与补能协调到一次任务中。</p></article>
+        <article><span>目标用户</span><h3>家庭出行</h3><p>多人、行李、儿童与到达时间让出发准备更复杂。</p></article>
+        <article><span>目标用户</span><h3>长途驾驶</h3><p>需要持续关注车况、续航、补能与异常风险。</p></article>
+        <article><span>核心问题</span><h3>传统助手缺少连续执行</h3><p>信息分散在地图、天气、日程、车辆与充电站系统。</p></article>
+      </div>
+
+      <div class="agent-architecture" aria-label="DriveMate多Agent架构">
+        <div class="main-agent">
+          <span>ORCHESTRATOR</span>
+          <strong>DriveMate 主Agent</strong>
+          <p>理解复合任务、拆分步骤、选择工具、汇总事实，并在关键操作前请求确认。</p>
+        </div>
+        <div class="agent-grid">
+          <div><b>出行规划Agent</b><small>地图 / 交通 / 天气</small></div>
+          <div><b>车辆状态解释Agent</b><small>电量 / 胎压 / 维保</small></div>
+          <div><b>补能规划Agent</b><small>续航 / 充电站 / 停留</small></div>
+          <div><b>日程与提醒Agent</b><small>日历 / 出发提醒</small></div>
+          <div><b>应急支持Agent</b><small>异常解释 / 专业服务</small></div>
+        </div>
+      </div>
+
+      <h3 class="subheading">典型用户旅程</h3>
+      <div class="journey">
+        <div><span>01</span><b>提出复合任务</b><p>“明天上午带家人从上海去苏州……”</p></div>
+        <div><span>02</span><b>读取事实</b><p>日程、天气、交通、车辆电量、胎压与维保状态。</p></div>
+        <div><span>03</span><b>协同规划</b><p>估算出发窗口、路线与补能候选，并标记数据来源。</p></div>
+        <div><span>04</span><b>风险与确认</b><p>先展示车辆异常和关键假设，再请求用户确认。</p></div>
+        <div><span>05</span><b>形成计划</b><p>输出出发时间、路线、补能点、提醒和应急建议。</p></div>
+      </div>
+
+      <div class="safety-metrics">
+        <div>
+          <p class="eyebrow">SAFETY BOUNDARY</p>
+          <h3>安全边界</h3>
+          <ul class="feature-list">
+            <li>不直接执行高风险车辆控制</li>
+            <li>关键操作需要用户确认</li>
+            <li>区分车辆事实数据与模型推断</li>
+            <li>车辆异常优先建议联系专业服务</li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">EVALUATION</p>
+          <h3>评测指标</h3>
+          <div class="metric-cloud">
+            <span>任务完成率</span><span>工具调用准确率</span><span>信息事实性</span>
+            <span>用户确认次数</span><span>响应时间</span><span>用户满意度</span><span>高风险错误率</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method" id="method" aria-labelledby="method-title">
+      <div class="section-heading">
+        <p class="eyebrow">PRODUCT METHOD</p>
+        <h2 id="method-title">我的产品方法</h2>
+        <p>用可验证的MVP缩短“想法”和“证据”之间的距离。</p>
+      </div>
+      <div class="method-flow">
+        <div><span>01</span><b>发现问题</b><p>先确认用户为什么被现状阻塞。</p></div>
+        <div><span>02</span><b>定义用户与场景</b><p>明确谁、何时、在什么约束下使用。</p></div>
+        <div><span>03</span><b>制定MVP</b><p>保留最短闭环与清晰安全边界。</p></div>
+        <div><span>04</span><b>搭建Demo</b><p>把关键流程做成可交互原型。</p></div>
+        <div><span>05</span><b>测试与评估</b><p>用任务、规则和结果指标验证。</p></div>
+        <div><span>06</span><b>bad case分析</b><p>按失败类型定位产品或系统问题。</p></div>
+        <div><span>07</span><b>迭代优化</b><p>回归测试后再进入下一轮。</p></div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">CONTACT & LINKS</p>
+        <h2 id="contact-title">期待一起把AI能力做成可用产品</h2>
+        <p>陈蔚昕 · AI产品经理 / AI创新产品</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/lincoln3079938241-coder"><span>GitHub</span><b>lincoln3079938241-coder ↗</b></a>
+        <a href="https://auto-lifeos-demo.streamlit.app/"><span>Auto-LifeOS Demo</span><b>匿名体验 ↗</b></a>
+        <a href="https://shanghai-2027-job-radar-demo.streamlit.app/"><span>秋招雷达 Demo</span><b>匿名体验 ↗</b></a>
+        <a href="assets/Chen-Weixin-AI-Product-Portfolio.pdf"><span>PDF作品集</span><b>下载文件</b></a>
+        <a href="mailto:Lincoln3079938241@163.com"><span>邮箱</span><b>Lincoln3079938241@163.com</b></a>
+      </div>
+      <p class="contact-note">仅公开求职所需联系方式，不展示手机号或其他非必要个人信息。</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 陈蔚昕</span>
+    <span>公开作品集 · 无需登录 · 所有项目边界已明确标注</span>
+  </footer>
+</body>
+</html>
