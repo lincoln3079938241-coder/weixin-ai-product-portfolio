@@ -3,123 +3,206 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DriveMate｜Concept Proposal</title>
+  <meta name="description" content="DriveMate：面向车主的多Agent智能出行与车况助手创新产品概念方案。未开发上线，不连接真实车辆或外部API。">
+  <title>DriveMate｜AI+汽车创新产品概念方案</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .concept-page{width:min(1120px,calc(100% - 2rem));min-height:calc(100vh - 2rem);margin:1rem auto;padding:clamp(2rem,5vw,4rem);background:#fff;border:1px solid var(--line);border-radius:20px}
-    .concept-page h1{font-size:clamp(3rem,8vw,6rem);margin:.6rem 0}
-    .concept-page h2{font-size:clamp(2rem,4vw,3.4rem)}
-    .concept-meta{display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font-size:.84rem}
-    .tool-grid,.wire-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem;margin:1.2rem 0}
-    .tool-grid div{padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
-    .tool-grid b,.tool-grid small{display:block}.tool-grid small{color:var(--muted);margin-top:.35rem}
-    .wireframe{display:grid;grid-template-columns:240px 1fr;gap:1rem;padding:1rem;border:2px solid var(--ink);border-radius:18px;background:#f8fbfa}
-    .wire-side,.wire-main{border:1px solid #aebec4;border-radius:12px;padding:1rem;background:#fff}
-    .wire-chip{display:inline-block;margin:.2rem;padding:.32rem .5rem;background:#e6f3f2;border-radius:7px;font-size:.75rem}
-    .wire-card{margin:.65rem 0;padding:.75rem;border:1px solid #ccd8dc;border-radius:8px}
-    .wire-button{padding:.65rem;text-align:center;background:var(--ink);color:#fff;border-radius:8px}
-    @media(max-width:760px){.tool-grid{grid-template-columns:1fr 1fr}.wireframe{grid-template-columns:1fr}.concept-page{border-radius:0;margin:0;width:100%}}
-    @media print{
-      @page{size:A4;margin:0}
-      body{background:#fff}
-      .concept-page{width:210mm;height:297mm;min-height:0;margin:0;padding:14mm;border:0;border-radius:0;break-after:page;overflow:hidden}
-      .concept-page:last-child{break-after:auto}
-      .site-header{display:none}
-      .problem-value-grid{margin:7mm 0}.agent-architecture{margin:6mm 0}.journey{gap:3mm}
-      h1{font-size:32pt!important}h2{font-size:24pt!important}
-    }
+    .concept-shell{width:min(1180px,calc(100% - 2rem));margin:1rem auto 4rem}
+    .concept-hero,.concept-block{padding:clamp(1.3rem,4vw,3rem);border:1px solid var(--line);background:#fff;border-radius:20px;margin-bottom:1rem}
+    .concept-banners{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.5rem}
+    .concept-banner{padding:.45rem .7rem;border:1px solid #dfc564;border-radius:999px;background:#fff4c6;color:#624b00;font-size:.76rem;font-weight:750}
+    .concept-banner.neutral{border-color:#98b9b6;background:#edf7f6;color:#175956}
+    .concept-hero h1{font-size:clamp(3.6rem,10vw,7.5rem);margin:.4rem 0}
+    .concept-summary{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+    .concept-summary article{padding:1.15rem;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+    .concept-summary h3{margin:.2rem 0 .5rem}.concept-summary p{margin:0;color:var(--muted)}
+    .layer-stack{display:grid;gap:.75rem;margin:1.4rem 0}
+    .layer{padding:1rem;border:1px solid var(--line);border-radius:14px;background:#fff}
+    .layer.core{border-color:#5aa8a3;background:#eaf4f3}
+    .layer.output{background:var(--warm)}
+    .layer-head{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.7rem}
+    .layer-head span{color:var(--cyan);font:760 .72rem Arial,sans-serif;letter-spacing:.08em}
+    .node-row{display:flex;flex-wrap:wrap;gap:.5rem}
+    .node-row span{padding:.48rem .65rem;border:1px solid #c9d8dc;border-radius:8px;background:#fff;font-size:.8rem}
+    .architecture-note{color:var(--muted);font-size:.84rem}
+    .scenario-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0}
+    .scenario-tab{padding:.65rem .8rem;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}
+    .scenario-tab[aria-pressed="true"]{border-color:var(--cyan);background:var(--ink);color:#fff}
+    .prototype{display:grid;grid-template-columns:250px 1fr;gap:1rem;padding:1rem;border:2px solid var(--ink);border-radius:18px;background:#f4f8f7}
+    .proto-side,.proto-main{padding:1rem;border:1px solid #aebec4;border-radius:12px;background:#fff}
+    .proto-side h4,.proto-main h4{margin:.1rem 0 .7rem}
+    .state-list{display:grid;gap:.5rem}
+    .state-row{display:flex;justify-content:space-between;gap:.6rem;padding:.52rem .6rem;border-radius:8px;background:#f0f5f4;font-size:.78rem}
+    .state-row b{text-align:right}
+    .source-list{display:flex;flex-wrap:wrap;gap:.35rem;margin:.75rem 0}
+    .source-list span{padding:.3rem .45rem;border-radius:6px;background:#e7f2f1;font-size:.7rem}
+    .plan-list{margin:.7rem 0;padding-left:1.25rem;color:#334b55}
+    .plan-list li{margin:.45rem 0}
+    .risk-card{padding:.8rem;border-left:4px solid #d39a00;background:#fff4cf;border-radius:0 8px 8px 0}
+    .confirm-zone{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line)}
+    .confirm-zone button{padding:.7rem .9rem;border:0;border-radius:8px;background:var(--ink);color:#fff;cursor:pointer}
+    .roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin-top:1rem}
+    .roadmap article{padding:1rem;border-top:3px solid var(--cyan);background:#fff}
+    .roadmap article:first-child{border-color:#9aa9ae}
+    .roadmap span{color:var(--cyan);font:760 .7rem Arial,sans-serif}.roadmap p{color:var(--muted);font-size:.82rem}
+    @media(max-width:800px){.concept-summary,.prototype{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr 1fr}.concept-shell{width:min(100% - 1rem,1180px)}}
+    @media(max-width:520px){.roadmap{grid-template-columns:1fr}.confirm-zone{align-items:flex-start;flex-direction:column}.scenario-tab{width:100%;text-align:left}}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
   <header class="site-header">
     <a class="brand" href="index.html"><span class="brand-mark">DM</span><span>返回作品集</span></a>
-    <nav><a href="assets/DriveMate-Concept-Proposal.pdf" class="nav-cta">下载PDF</a></nav>
+    <nav aria-label="页面导航"><a href="#prototype">静态原型</a><a href="#roadmap">VLA路线</a><a class="nav-cta" href="assets/DriveMate-Concept-Proposal.pdf">下载2页PDF</a></nav>
   </header>
 
-  <article class="concept-page">
-    <div class="concept-meta"><span>Concept Proposal / 创新产品概念方案</span><span>未开发上线</span></div>
-    <p class="eyebrow">AI + AUTOMOTIVE · MULTI-AGENT</p>
-    <h1>DriveMate</h1>
-    <p class="lead">面向城市通勤、家庭出行和长途驾驶用户的多Agent智能出行与车况助手。</p>
-    <div class="problem-value-grid four">
-      <article><span>痛点01</span><h3>行程信息分散</h3><p>地图、天气、日程与同行人安排彼此割裂。</p></article>
-      <article><span>痛点02</span><h3>车况难以理解</h3><p>电量、胎压和维保状态缺少面向普通用户的解释。</p></article>
-      <article><span>痛点03</span><h3>补能无法统筹</h3><p>路线、充电站、停留时间和到达目标需要联合规划。</p></article>
-      <article><span>痛点04</span><h3>助手缺少连续执行</h3><p>传统语音交互难以拆解并完成跨工具复合任务。</p></article>
-    </div>
-    <h3>产品方案与Agent协作</h3>
-    <div class="agent-architecture">
-      <div class="main-agent"><span>ORCHESTRATOR</span><strong>DriveMate 主Agent</strong><p>拆解任务、协调专业Agent、选择工具、汇总事实和推断，并在关键动作前请求确认。</p></div>
-      <div class="agent-grid">
-        <div><b>出行规划Agent</b><small>地图 / 交通 / 天气</small></div>
-        <div><b>车辆状态解释Agent</b><small>电量 / 胎压 / 维保状态</small></div>
-        <div><b>补能规划Agent</b><small>续航 / 充电站 / 停留时间</small></div>
-        <div><b>日程与提醒Agent</b><small>日程 / 出发提醒 / 到达目标</small></div>
-        <div><b>应急支持Agent</b><small>异常解释 / 道路救援 / 专业服务</small></div>
+  <main id="main" class="concept-shell">
+    <section class="concept-hero">
+      <div class="concept-banners">
+        <span class="concept-banner">Concept Proposal / 创新产品概念方案 · 未开发上线</span>
+        <span class="concept-banner neutral">Static Concept Demo / 不连接真实车辆或外部API</span>
       </div>
-    </div>
-    <h3>工具调用范围</h3>
-    <div class="tool-grid">
-      <div><b>地图和交通</b><small>路线、拥堵、预计用时</small></div>
-      <div><b>天气</b><small>降雨、温度、预警</small></div>
-      <div><b>用户日程</b><small>时间约束、提醒</small></div>
-      <div><b>车辆状态</b><small>电量、胎压、维保</small></div>
-      <div><b>充电站</b><small>位置、可用性、功率</small></div>
-    </div>
-    <p class="boundary-note"><b>典型任务：</b>“明天上午带家人从上海去苏州，帮我检查车辆状态、规划补能并结合日程安排出发时间。”</p>
-  </article>
+      <p class="eyebrow">AI + AUTOMOTIVE · MULTIMODAL AGENT · PHYSICAL AI CONCEPT</p>
+      <h1>DriveMate</h1>
+      <p class="lead">面向城市通勤、家庭出行和长途驾驶用户的多Agent智能出行与车况助手：把分散的行程、车辆、补能与环境信息整理成可解释、可确认的行动建议。</p>
+      <div class="concept-summary">
+        <article><span class="evidence-label">JTBD</span><h3>出发前，把复杂约束变成一份可执行计划</h3><p>当用户提出跨日程、天气、路线和车况的复合任务时，系统整合事实、解释风险，并在关键动作前请求确认。</p></article>
+        <article><span class="evidence-label">MVP Boundary</span><h3>先做“理解与规划”，不做车辆控制</h3><p>MVP仅覆盖信息汇总、车况解释、路线与补能建议、提醒草案；不自动控制车辆，也不替代专业诊断。</p></article>
+      </div>
+    </section>
 
-  <article class="concept-page">
-    <div class="concept-meta"><span>DriveMate · User Journey & Validation</span><span>Page 2 / 2</span></div>
-    <p class="eyebrow">USER JOURNEY</p>
-    <h2>从一句复合需求到可确认计划</h2>
-    <div class="journey">
-      <div><span>01</span><b>理解任务</b><p>识别目的地、同行人、时间和补能要求。</p></div>
-      <div><span>02</span><b>读取事实</b><p>日程、天气、交通、车辆与充电站数据。</p></div>
-      <div><span>03</span><b>协同规划</b><p>各Agent生成路线、出发窗口和补能候选。</p></div>
-      <div><span>04</span><b>风险确认</b><p>标注异常、来源、假设与需用户确认的动作。</p></div>
-      <div><span>05</span><b>输出计划</b><p>形成出发时间、路线、补能、提醒和应急建议。</p></div>
-    </div>
-    <div class="safety-metrics">
-      <div>
-        <p class="eyebrow">SAFETY BOUNDARY</p>
-        <h3>安全边界</h3>
-        <ul class="feature-list">
-          <li>不直接执行高风险车辆控制；</li>
-          <li>关键操作需用户确认；</li>
-          <li>区分车辆事实数据与模型推断；</li>
-          <li>车辆异常优先建议联系专业服务；</li>
-          <li>工具数据缺失或冲突时明确提示，不补造事实。</li>
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow">EVALUATION</p>
-        <h3>评测指标</h3>
-        <div class="metric-cloud">
-          <span>任务完成率</span><span>工具调用准确率</span><span>信息事实性</span>
-          <span>用户确认次数</span><span>响应时间</span><span>用户满意度</span><span>高风险错误率</span>
+    <section class="concept-block" aria-labelledby="architecture-title">
+      <p class="eyebrow">MULTIMODAL PRODUCT ARCHITECTURE</p>
+      <h2 id="architecture-title">从多模态事实输入，到可确认的安全输出</h2>
+      <div class="layer-stack">
+        <div class="layer">
+          <div class="layer-head"><b>输入层 · Multimodal Inputs</b><span>FACT SOURCES</span></div>
+          <div class="node-row"><span>语音 / 文本需求</span><span>车辆电量、胎压、维保状态</span><span>地图 / 交通 / 天气 / 充电站</span><span>外部视觉：路况与积水概念输入</span><span>舱内视觉：乘员与疲劳概念输入</span></div>
+        </div>
+        <div class="layer core">
+          <div class="layer-head"><b>编排层 · Agent Orchestration</b><span>REASON · VERIFY · CONFIRM</span></div>
+          <div class="node-row"><span>多模态意图解析</span><span>主Agent任务拆解</span><span>出行 / 车况 / 补能 / 日程 / 应急Agent</span><span>工具结果聚合</span><span>事实与推断分离</span><span>风险分级与确认策略</span></div>
+        </div>
+        <div class="layer output">
+          <div class="layer-head"><b>输出层 · Safe Outputs</b><span>USER CONTROL</span></div>
+          <div class="node-row"><span>可解释出行计划</span><span>来源与数据时间</span><span>风险提醒</span><span>待确认动作</span><span>联系专业服务建议</span></div>
         </div>
       </div>
-    </div>
-    <p class="eyebrow" style="margin-top:2rem">LOW-FIDELITY UI</p>
-    <h3>低保真页面示意</h3>
-    <div class="wireframe" aria-label="DriveMate低保真页面">
-      <aside class="wire-side">
-        <b>明日出行</b>
-        <div class="wire-card">上海 → 苏州<br><small>家庭出行 · 上午</small></div>
-        <span class="wire-chip">天气</span><span class="wire-chip">日程</span>
-        <span class="wire-chip">车辆</span><span class="wire-chip">补能</span>
-        <div class="wire-card">待确认事项<br><small>胎压异常解释<br>补能站候选</small></div>
-      </aside>
-      <section class="wire-main">
-        <b>DriveMate 计划摘要</b>
-        <div class="wire-card"><b>车辆状态</b><br>电量 68% · 胎压数据待确认 · 距维保里程 1,200 km</div>
-        <div class="wire-card"><b>建议出发</b><br>08:10 - 08:25 · 避开预计拥堵 · 与 11:00 日程兼容</div>
-        <div class="wire-card"><b>补能方案</b><br>方案A：途中快充 · 方案B：到达后补能</div>
-        <div class="wire-button">确认计划并创建提醒</div>
-      </section>
-    </div>
-    <p class="evidence-note">以上为概念设计，不代表已经接入车辆、地图、天气、日历或充电站API，也不代表已完成开发或上线。</p>
-  </article>
+      <p class="architecture-note">边界说明：以上视觉和车辆数据均为产品概念输入。目前没有接入摄像头、车辆传感器、真实VLA模型或车控接口；页面展示的是静态示意数据。</p>
+    </section>
+
+    <section class="concept-block" id="prototype">
+      <p class="eyebrow">STATIC LOW-FIDELITY PROTOTYPE</p>
+      <h2>三个高约束场景，验证同一套信息与安全结构</h2>
+      <p class="section-intro">切换下方场景可查看不同的静态界面状态。按钮只改变页面示例，不调用地图、天气、车辆或日程API。</p>
+      <div class="scenario-tabs" role="group" aria-label="选择概念场景">
+        <button class="scenario-tab" data-scenario="airport" aria-pressed="true">暴雨积水 · 机场接人</button>
+        <button class="scenario-tab" data-scenario="family" aria-pressed="false">家庭长途 · 上海至杭州</button>
+        <button class="scenario-tab" data-scenario="tire" aria-pressed="false">胎压异常 · 安全处置</button>
+      </div>
+      <div class="prototype" aria-live="polite">
+        <aside class="proto-side">
+          <span class="evidence-label">Vehicle & Context</span>
+          <h4 id="proto-context-title">出发前状态</h4>
+          <div id="proto-states" class="state-list"></div>
+          <div id="proto-sources" class="source-list"></div>
+        </aside>
+        <div class="proto-main">
+          <span class="evidence-label">DriveMate Plan</span>
+          <h3 id="proto-title"></h3>
+          <p id="proto-task" class="section-intro"></p>
+          <ol id="proto-plan" class="plan-list"></ol>
+          <div id="proto-risk" class="risk-card"></div>
+          <div class="confirm-zone"><div><small>待确认动作</small><br><b id="proto-action"></b></div><button id="confirm-button" type="button">我已了解（静态示意）</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept-block">
+      <p class="eyebrow">KEY PRODUCT DECISIONS</p>
+      <h2>概念阶段先确定约束，再讨论智能化程度</h2>
+      <div class="decision-grid five">
+        <article><span>Decision 01</span><h4>主Agent负责统一解释</h4><p>专业Agent返回局部结论，主Agent统一冲突、来源与用户可见计划。</p></article>
+        <article><span>Decision 02</span><h4>事实与推断分层</h4><p>传感器或工具结果标记时间；模型推断明确使用“可能”“建议”。</p></article>
+        <article><span>Decision 03</span><h4>按风险决定确认强度</h4><p>信息查询无需确认；提醒创建需单次确认；车控不在MVP范围。</p></article>
+        <article><span>Decision 04</span><h4>异常优先降级</h4><p>缺少数据时不补全事实，转为说明缺口、提供人工或专业服务路径。</p></article>
+        <article><span>Decision 05</span><h4>多模态服务于约束识别</h4><p>视觉不是展示噱头，只在能补充路况、乘员或风险事实时进入决策链。</p></article>
+      </div>
+    </section>
+
+    <section class="concept-block">
+      <p class="eyebrow">SAFETY & EVALUATION</p>
+      <h2>用高风险错误率约束“任务完成率”</h2>
+      <div class="safety-metrics">
+        <div><h3>安全边界</h3><ul class="feature-list"><li>不直接执行高风险车辆控制</li><li>关键操作需用户确认，可随时取消</li><li>区分事实数据、过期数据与模型推断</li><li>车辆异常优先建议停车检查或联系专业服务</li><li>工具不可用时降级为信息缺口说明</li></ul></div>
+        <div><h3>概念验证指标</h3><div class="metric-cloud"><span>任务完成率</span><span>工具调用准确率</span><span>信息事实性</span><span>用户确认次数</span><span>响应时间</span><span>用户满意度</span><span>高风险错误率</span></div><p class="architecture-note">这些是计划采用的评测指标，不是已取得的线上结果。</p></div>
+      </div>
+    </section>
+
+    <section class="concept-block" id="roadmap">
+      <p class="eyebrow">PHYSICAL AI / VLA ROADMAP</p>
+      <h2>从静态概念，到受控环境中的感知—语言—行动闭环</h2>
+      <p class="conclusion-note"><b>当前状态：</b>位于 Stage 0，仅完成产品概念、信息架构和静态低保真原型；尚未训练或接入VLA模型，未连接真实车辆。</p>
+      <div class="roadmap">
+        <article><span>STAGE 0 · CURRENT</span><h4>静态概念验证</h4><p>用合成场景验证用户任务、信息结构、安全边界和确认策略。</p></article>
+        <article><span>STAGE 1</span><h4>只读数据沙盒</h4><p>在仿真或授权测试数据中接入车辆状态与地图工具，验证事实性和工具调用。</p></article>
+        <article><span>STAGE 2</span><h4>多模态风险理解</h4><p>在离线标注数据上评测视觉—语言对积水、障碍和舱内风险的识别与解释。</p></article>
+        <article><span>STAGE 3</span><h4>受控低风险行动</h4><p>仅在封闭环境和明确授权下验证低风险动作；保留规则护栏、人工确认和完整日志。</p></article>
+      </div>
+      <div class="concept-cta"><a class="button primary" href="assets/DriveMate-Concept-Proposal.pdf">下载2页概念方案PDF</a><a class="button secondary" href="index.html">返回统一作品集</a></div>
+    </section>
+  </main>
+
+  <footer><span>© 2026 陈蔚昕 · DriveMate Concept Proposal</span><span>未开发上线 · 不连接真实车辆或外部API</span></footer>
+  <script>
+    const scenarios = {
+      airport: {
+        title: "暴雨积水条件下的机场接人计划",
+        task: "今晚20:30到浦东机场接家人；希望避开积水风险，并确认当前续航是否足够。",
+        states: [["电量","68% · 示例"],["胎压","正常 · 示例"],["天气","暴雨预警 · 示例"],["预计路程","96 km往返 · 示例"]],
+        sources: ["车辆状态 18:00","天气 18:05","交通 18:06","日程 18:00"],
+        plan: ["建议提前25分钟出发，预留暴雨低速与临时绕行时间。","优先选择主干高架路线；低洼路段仅作为风险提示，不假设实时可通行。","按示例电量可完成往返，但建议保留20%安全余量并展示沿途充电备选。"],
+        risk: "<b>高优先级：</b>视觉或地图若提示积水，系统只解释风险并建议绕行；无法判断水深，不指导车辆涉水。",
+        action: "确认将建议出发时间写入提醒草案"
+      },
+      family: {
+        title: "家庭长途出行的补能与休息协同",
+        task: "周六上午带老人和孩子从上海去杭州，结合午餐预约、天气和车辆状态安排出发。",
+        states: [["电量","54% · 示例"],["胎压","正常 · 示例"],["天气","晴 / 高温 · 示例"],["日程","12:30午餐 · 示例"]],
+        sources: ["车辆状态 07:30","天气 07:31","路线 07:32","日程 07:30"],
+        plan: ["以12:15前到达为约束，倒推出建议出发窗口08:40—09:00。","中途安排一次20分钟休息，并把补能站作为候选而非默认必停。","高温下提示提前开启空调的建议，但不直接执行车控。"],
+        risk: "<b>中优先级：</b>充电站可用性可能变化；出发前需重新读取状态，不能把静态候选当作已预订资源。",
+        action: "确认保存出发窗口与途中休息提醒草案"
+      },
+      tire: {
+        title: "胎压异常时优先处置，而非继续规划",
+        task: "准备上高速前发现右后轮胎压偏低，仍想按原计划出发。",
+        states: [["右后胎压","偏低 · 示例"],["其余轮胎","正常 · 示例"],["维保状态","无到期项 · 示例"],["路线","含高速 · 示例"]],
+        sources: ["车辆状态 即时示例","用户日程 示例","服务点 示例"],
+        plan: ["暂停原长途路线与补能规划，先解释异常及不确定性。","建议在安全位置停车检查，并参考车辆手册的制造商标准值。","若持续下降或出现警报，建议联系道路救援或专业服务；只提供服务入口草案。"],
+        risk: "<b>高优先级：</b>系统不远程诊断轮胎、不判断车辆可继续高速行驶，也不自动呼叫救援。",
+        action: "确认查看附近专业服务入口（静态示意）"
+      }
+    };
+    const stateEl = document.getElementById("proto-states");
+    const sourceEl = document.getElementById("proto-sources");
+    const planEl = document.getElementById("proto-plan");
+    const confirmButton = document.getElementById("confirm-button");
+    function renderScenario(key) {
+      const item = scenarios[key];
+      document.getElementById("proto-title").textContent = item.title;
+      document.getElementById("proto-task").textContent = item.task;
+      document.getElementById("proto-action").textContent = item.action;
+      document.getElementById("proto-risk").innerHTML = item.risk;
+      stateEl.innerHTML = item.states.map(([a,b]) => `<div class="state-row"><span>${a}</span><b>${b}</b></div>`).join("");
+      sourceEl.innerHTML = item.sources.map(x => `<span>${x}</span>`).join("");
+      planEl.innerHTML = item.plan.map(x => `<li>${x}</li>`).join("");
+      confirmButton.textContent = "我已了解（静态示意）";
+      document.querySelectorAll(".scenario-tab").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.scenario === key)));
+    }
+    document.querySelectorAll(".scenario-tab").forEach(btn => btn.addEventListener("click", () => renderScenario(btn.dataset.scenario)));
+    confirmButton.addEventListener("click", () => { confirmButton.textContent = "已确认示意 · 未执行外部操作"; });
+    renderScenario("airport");
+  </script>
 </body>
 </html>
