@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DriveMate is a multi-agent mobility and vehicle-status assistant concept. It is a static prototype with no real vehicle, sensor, VLA, or external API integration.">
+  <title>DriveMate | Automotive AI Product Concept</title>
+  <link rel="canonical" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/en/drivemate.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/drivemate.html">
+  <link rel="alternate" hreflang="en" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/en/drivemate.html">
+  <link rel="alternate" hreflang="x-default" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/drivemate.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DriveMate | Automotive AI Product Concept">
+  <meta property="og:description" content="A multimodal, multi-agent mobility assistant concept with explicit safety and evidence boundaries.">
+  <meta property="og:url" content="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/en/drivemate.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Back to the English portfolio"><span class="brand-mark">DM</span><span class="brand-label">Back to portfolio</span></a>
+    <nav aria-label="Page navigation"><a href="#prototype">Static prototype</a><a href="#roadmap">VLA roadmap</a><a class="language-switch" href="../drivemate.html" lang="zh-CN" hreflang="zh-CN" aria-label="Switch to Chinese">中文</a><a class="nav-cta" href="../assets/DriveMate-Concept-EN.pdf" aria-label="Download the two-page English DriveMate PDF">Download 2-page PDF</a></nav>
+  </header>
+
+  <main id="main" class="concept-shell">
+    <section class="concept-hero">
+      <div class="concept-banners">
+        <span class="concept-banner">Concept Proposal · Not developed or launched</span>
+        <span class="concept-banner neutral">Static Concept Demo · No real vehicle or external API connection</span>
+      </div>
+      <p class="eyebrow">AI + AUTOMOTIVE · MULTIMODAL AGENT · PHYSICAL AI CONCEPT</p>
+      <h1>DriveMate</h1>
+      <p class="lead">A multi-agent mobility and vehicle-status assistant for urban commuters, family travelers, and long-distance drivers. It organizes fragmented schedule, vehicle, charging, and environmental information into explainable recommendations that remain under user control.</p>
+      <div class="concept-summary">
+        <article><span class="evidence-label">JTBD</span><h3>Turn complex pre-trip constraints into an executable plan</h3><p>When a user presents a compound task spanning schedule, weather, route, and vehicle status, the system consolidates facts, explains risks, and requests confirmation before key actions.</p></article>
+        <article><span class="evidence-label">MVP Boundary</span><h3>Validate understanding and planning—not vehicle control</h3><p>The MVP covers information synthesis, vehicle-status explanation, route and charging suggestions, and reminder drafts. It does not control a vehicle or replace professional diagnosis.</p></article>
+      </div>
+    </section>
+
+    <section class="concept-block" aria-labelledby="architecture-title">
+      <p class="eyebrow">MULTIMODAL PRODUCT ARCHITECTURE</p>
+      <h2 id="architecture-title">From multimodal fact inputs to safe, confirmable outputs</h2>
+      <div class="layer-stack">
+        <div class="layer">
+          <div class="layer-head"><b>Input Layer · Multimodal Inputs</b><span>FACT SOURCES</span></div>
+          <div class="node-row"><span>Voice / text request</span><span>Battery, tire pressure, maintenance status</span><span>Map / traffic / weather / charging station</span><span>External vision: conceptual road and flooding input</span><span>Cabin vision: conceptual passenger and fatigue input</span></div>
+        </div>
+        <div class="layer core">
+          <div class="layer-head"><b>Orchestration Layer · Agent Orchestration</b><span>REASON · VERIFY · CONFIRM</span></div>
+          <div class="node-row"><span>Multimodal intent parsing</span><span>Orchestrator task decomposition</span><span>Trip / vehicle / charging / schedule / emergency agents</span><span>Tool-result aggregation</span><span>Fact-inference separation</span><span>Risk tiering and confirmation policy</span></div>
+        </div>
+        <div class="layer output">
+          <div class="layer-head"><b>Output Layer · Safe Outputs</b><span>USER CONTROL</span></div>
+          <div class="node-row"><span>Explainable trip plan</span><span>Source and data timestamp</span><span>Risk notice</span><span>Action awaiting confirmation</span><span>Professional service recommendation</span></div>
+        </div>
+      </div>
+      <p class="architecture-note">Evidence boundary: all visual and vehicle data above are proposed product inputs. The prototype has no camera, vehicle-sensor, real VLA model, or vehicle-control integration. The interface uses static demonstration data.</p>
+    </section>
+
+    <section class="concept-block" id="prototype">
+      <p class="eyebrow">STATIC LOW-FIDELITY PROTOTYPE</p>
+      <h2>Three high-constraint scenarios using one information and safety structure</h2>
+      <p class="section-intro">Switch scenarios to inspect different static interface states. These controls only change the example shown on this page; they do not call map, weather, vehicle, or calendar APIs.</p>
+      <div class="scenario-tabs" role="group" aria-label="Choose a concept scenario">
+        <button class="scenario-tab" data-scenario="airport" aria-pressed="true">Heavy Rain &amp; Flooding · Airport Pickup</button>
+        <button class="scenario-tab" data-scenario="family" aria-pressed="false">Family Road Trip · Shanghai to Hangzhou</button>
+        <button class="scenario-tab" data-scenario="tire" aria-pressed="false">Abnormal Tire Pressure · Safety Response</button>
+      </div>
+      <div class="prototype" aria-live="polite">
+        <aside class="proto-side">
+          <span class="evidence-label">Vehicle &amp; Context</span>
+          <h4 id="proto-context-title">Pre-trip status</h4>
+          <div id="proto-states" class="state-list"></div>
+          <div id="proto-sources" class="source-list"></div>
+        </aside>
+        <div class="proto-main">
+          <span class="evidence-label">DriveMate Plan</span>
+          <h3 id="proto-title"></h3>
+          <p id="proto-task" class="section-intro"></p>
+          <ol id="proto-plan" class="plan-list"></ol>
+          <div id="proto-risk" class="risk-card"></div>
+          <div class="confirm-zone"><div><small>Action awaiting confirmation</small><br><b id="proto-action"></b></div><button id="confirm-button" type="button">I understand · Static demo</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept-block">
+      <p class="eyebrow">KEY PRODUCT DECISIONS</p>
+      <h2>Define constraints before deciding the level of automation</h2>
+      <div class="decision-grid five">
+        <article><span>Decision 01</span><h4>One orchestrator owns the explanation</h4><p>Specialist agents return local conclusions; the orchestrator resolves conflicts and presents sources and one user-facing plan.</p></article>
+        <article><span>Decision 02</span><h4>Separate facts from inference</h4><p>Sensor or tool results carry timestamps. Model inference uses explicit qualifiers such as “may” and “recommend.”</p></article>
+        <article><span>Decision 03</span><h4>Confirmation strength follows risk</h4><p>Information lookup needs no confirmation; reminder creation needs one confirmation; vehicle control is outside the MVP.</p></article>
+        <article><span>Decision 04</span><h4>Degrade safely on exceptions</h4><p>When data is missing, the system states the gap and offers a human or professional path instead of filling in facts.</p></article>
+        <article><span>Decision 05</span><h4>Multimodality must identify constraints</h4><p>Vision enters the decision chain only when it can contribute road, passenger, or risk facts—not as a demonstration gimmick.</p></article>
+      </div>
+    </section>
+
+    <section class="concept-block">
+      <p class="eyebrow">SAFETY &amp; EVALUATION</p>
+      <h2>Constrain task completion with high-risk error measures</h2>
+      <div class="safety-metrics">
+        <div><h3>Safety boundary</h3><ul class="feature-list"><li>No direct execution of high-risk vehicle control</li><li>User confirmation for key actions, with cancellation available</li><li>Clear separation of facts, stale data, and model inference</li><li>Vehicle exceptions prioritize stopping safely or contacting professional support</li><li>Unavailable tools produce a stated information gap</li></ul></div>
+        <div><h3>Planned concept metrics</h3><div class="metric-cloud"><span>Task completion</span><span>Tool-call accuracy</span><span>Factual consistency</span><span>Confirmation count</span><span>Response time</span><span>User satisfaction</span><span>High-risk error rate</span></div><p class="architecture-note">These are proposed evaluation metrics, not results from a deployed product.</p></div>
+      </div>
+    </section>
+
+    <section class="concept-block" id="roadmap">
+      <p class="eyebrow">PHYSICAL AI / VLA ROADMAP</p>
+      <h2>From a static concept to a perception-language-action loop in controlled environments</h2>
+      <p class="conclusion-note"><b>Current status:</b> Stage 0. The work includes a product concept, information architecture, and static low-fidelity prototype only. No VLA model has been trained or integrated, and no real vehicle is connected.</p>
+      <div class="roadmap">
+        <article><span>STAGE 0 · CURRENT</span><h4>Static concept validation</h4><p>Use synthetic scenarios to examine user tasks, information structure, safety boundaries, and confirmation policy.</p></article>
+        <article><span>STAGE 1</span><h4>Read-only data sandbox</h4><p>Use simulated or authorized test data for vehicle state and map tools to evaluate factual consistency and tool calls.</p></article>
+        <article><span>STAGE 2</span><h4>Multimodal risk understanding</h4><p>Evaluate vision-language recognition and explanation of flooding, obstacles, and cabin risk on offline labeled data.</p></article>
+        <article><span>STAGE 3</span><h4>Controlled low-risk action</h4><p>Evaluate low-risk actions only in closed environments with explicit authorization, rule guardrails, human confirmation, and full logs.</p></article>
+      </div>
+      <div class="concept-cta"><a class="button primary" href="../assets/DriveMate-Concept-EN.pdf">Download 2-page concept PDF</a><a class="button secondary" href="./">Back to the English portfolio</a></div>
+    </section>
+  </main>
+
+  <footer><span>© 2026 WEIXIN CHEN · DriveMate Concept Proposal</span><span>Not developed or launched · No real vehicle or external API connection</span></footer>
+  <script>
+    const scenarios = {
+      airport: {
+        title: "Heavy Rain & Flooding · Airport Pickup",
+        task: "Pick up a family member at Pudong Airport at 20:30, avoid flood risk, and check whether the current range is sufficient.",
+        states: [["Battery","68% · sample"],["Tire pressure","Normal · sample"],["Weather","Heavy-rain warning · sample"],["Estimated distance","96 km return · sample"]],
+        sources: ["Vehicle status 18:00","Weather 18:05","Traffic 18:06","Schedule 18:00"],
+        plan: ["Recommend leaving 25 minutes earlier to allow for lower speeds and temporary detours.","Prefer major elevated roads. Treat low-lying sections as risk notices only; do not assume real-time passability.","The sample battery level covers the return trip, but keep a 20% reserve and show charging alternatives along the route."],
+        risk: "<b>High priority:</b> If visual or map input suggests flooding, the system explains the risk and recommends rerouting. It cannot assess water depth and does not instruct the vehicle to drive through water.",
+        action: "Add the recommended departure time to a reminder draft"
+      },
+      family: {
+        title: "Family Road Trip · Shanghai to Hangzhou",
+        task: "Travel from Shanghai to Hangzhou on Saturday morning with an older adult and a child, coordinating a lunch booking, weather, and vehicle status.",
+        states: [["Battery","54% · sample"],["Tire pressure","Normal · sample"],["Weather","Sunny / hot · sample"],["Schedule","Lunch at 12:30 · sample"]],
+        sources: ["Vehicle status 07:30","Weather 07:31","Route 07:32","Schedule 07:30"],
+        plan: ["Work backward from a 12:15 arrival target to recommend an 08:40–09:00 departure window.","Plan one 20-minute break and treat charging stations as optional candidates, not required stops.","Suggest pre-cooling the cabin in hot weather, but do not execute a vehicle-control action."],
+        risk: "<b>Medium priority:</b> Charging-station availability may change. Refresh the status before departure and do not treat a static candidate as a reserved resource.",
+        action: "Save the departure window and rest-stop reminder draft"
+      },
+      tire: {
+        title: "Abnormal Tire Pressure · Safety Response",
+        task: "The rear-right tire pressure appears low before a highway trip, but the user still wants to leave as planned.",
+        states: [["Rear-right tire","Low · sample"],["Other tires","Normal · sample"],["Maintenance","No due item · sample"],["Route","Includes highway · sample"]],
+        sources: ["Vehicle status · current sample","User schedule · sample","Service points · sample"],
+        plan: ["Pause long-distance route and charging planning; explain the exception and its uncertainty first.","Recommend stopping in a safe place to inspect the tire and consulting the manufacturer's value in the vehicle manual.","If pressure continues to fall or a warning appears, recommend roadside assistance or professional service. Only present a service-entry draft."],
+        risk: "<b>High priority:</b> The system does not diagnose the tire remotely, decide that highway driving is safe, or call roadside assistance automatically.",
+        action: "View nearby professional service options · Static demo"
+      }
+    };
+    const stateEl = document.getElementById("proto-states");
+    const sourceEl = document.getElementById("proto-sources");
+    const planEl = document.getElementById("proto-plan");
+    const confirmButton = document.getElementById("confirm-button");
+    function renderScenario(key) {
+      const item = scenarios[key];
+      document.getElementById("proto-title").textContent = item.title;
+      document.getElementById("proto-task").textContent = item.task;
+      document.getElementById("proto-action").textContent = item.action;
+      document.getElementById("proto-risk").innerHTML = item.risk;
+      stateEl.innerHTML = item.states.map(([a,b]) => `<div class="state-row"><span>${a}</span><b>${b}</b></div>`).join("");
+      sourceEl.innerHTML = item.sources.map(x => `<span>${x}</span>`).join("");
+      planEl.innerHTML = item.plan.map(x => `<li>${x}</li>`).join("");
+      confirmButton.textContent = "I understand · Static demo";
+      document.querySelectorAll(".scenario-tab").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.scenario === key)));
+    }
+    document.querySelectorAll(".scenario-tab").forEach(btn => btn.addEventListener("click", () => renderScenario(btn.dataset.scenario)));
+    confirmButton.addEventListener("click", () => { confirmButton.textContent = "Confirmed in demo · No external action executed"; });
+    renderScenario("airport");
+  </script>
+</body>
+</html>

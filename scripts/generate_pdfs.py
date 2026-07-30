@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from reportlab.lib.colors import Color, HexColor, white
@@ -14,6 +15,11 @@ SITE = Path(__file__).resolve().parents[1]
 ASSETS = SITE / "assets"
 PORTFOLIO_PDF = ASSETS / "Chen-Weixin-AI-Product-Portfolio.pdf"
 CONCEPT_PDF = ASSETS / "DriveMate-Concept-Proposal.pdf"
+PORTFOLIO_EN_PDF = ASSETS / "Chen-Weixin-AI-Product-Portfolio-EN.pdf"
+CONCEPT_EN_PDF = ASSETS / "DriveMate-Concept-EN.pdf"
+
+SITE_URL = "https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/"
+SITE_EN_URL = f"{SITE_URL}en/"
 
 PAGE_W, PAGE_H = landscape(A4)
 MARGIN = 38
@@ -32,8 +38,9 @@ GOLD = HexColor("#6A4D00")
 
 
 def register_fonts() -> None:
-    pdfmetrics.registerFont(TTFont("MSYH", r"C:\Windows\Fonts\msyh.ttc"))
-    pdfmetrics.registerFont(TTFont("MSYH-Bold", r"C:\Windows\Fonts\msyhbd.ttc"))
+    font_dir = Path(os.environ["WINDIR"]) / "Fonts"
+    pdfmetrics.registerFont(TTFont("MSYH", font_dir / "msyh.ttc"))
+    pdfmetrics.registerFont(TTFont("MSYH-Bold", font_dir / "msyhbd.ttc"))
 
 
 def wrap_text(text: str, font: str, size: float, max_width: float) -> list[str]:
@@ -41,6 +48,18 @@ def wrap_text(text: str, font: str, size: float, max_width: float) -> list[str]:
     for paragraph in text.split("\n"):
         if not paragraph:
             lines.append("")
+            continue
+        if " " in paragraph:
+            current_words: list[str] = []
+            for word in paragraph.split():
+                candidate = " ".join([*current_words, word])
+                if current_words and pdfmetrics.stringWidth(candidate, font, size) > max_width:
+                    lines.append(" ".join(current_words))
+                    current_words = [word]
+                else:
+                    current_words.append(word)
+            if current_words:
+                lines.append(" ".join(current_words))
             continue
         current = ""
         for char in paragraph:
@@ -132,6 +151,51 @@ def card_text(
     text_block(c, body, x + 12, y + h - 54, w - 24, size=7.8, leading=11.8, color=MUTED, max_lines=4)
 
 
+def card_text_en(
+    c: canvas.Canvas,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    label: str,
+    heading: str,
+    body: str,
+    *,
+    fill=white,
+    label_color=CYAN,
+    heading_size: float = 9.2,
+    body_size: float = 7.2,
+    body_lines: int = 4,
+) -> None:
+    card(c, x, y, w, h, fill=fill)
+    c.setFont("MSYH-Bold", 6.4)
+    c.setFillColor(label_color)
+    c.drawString(x + 12, y + h - 17, label)
+    heading_bottom = text_block(
+        c,
+        heading,
+        x + 12,
+        y + h - 34,
+        w - 24,
+        font="MSYH-Bold",
+        size=heading_size,
+        leading=heading_size * 1.18,
+        color=INK,
+        max_lines=2,
+    )
+    text_block(
+        c,
+        body,
+        x + 12,
+        heading_bottom - 4,
+        w - 24,
+        size=body_size,
+        leading=body_size * 1.42,
+        color=MUTED,
+        max_lines=body_lines,
+    )
+
+
 def pill(c: canvas.Canvas, text: str, x: float, y: float, *, fill=PALE, color=BLUE, h: float = 20) -> float:
     w = pdfmetrics.stringWidth(text, "MSYH", 7.2) + 18
     c.setFillColor(fill)
@@ -198,13 +262,13 @@ def page_one(c: canvas.Canvas) -> None:
     c.rect(0, 0, 8, PAGE_H, fill=1, stroke=0)
     c.setFillColor(CYAN)
     c.setFont("MSYH-Bold", 8)
-    c.drawString(MARGIN, PAGE_H - 46, "AI PRODUCT MANAGER · CAMPUS RECRUITMENT PORTFOLIO")
+    c.drawString(MARGIN, PAGE_H - 46, "AI PRODUCT MANAGER PORTFOLIO")
     c.setFillColor(INK)
     c.setFont("MSYH-Bold", 43)
     c.drawString(MARGIN, PAGE_H - 112, "陈蔚昕")
     c.setFillColor(BLUE)
     c.setFont("MSYH-Bold", 21)
-    c.drawString(MARGIN, PAGE_H - 148, "AI产品经理 / AI创新产品")
+    c.drawString(MARGIN, PAGE_H - 148, "AI产品经理｜生成式AI与AI创新")
     text_block(
         c,
         "具备AI Agent、数据产品和独立应用开发经验，能够完成用户问题识别、产品方案设计、Demo搭建、测试评估与迭代落地。",
@@ -240,7 +304,7 @@ def page_one(c: canvas.Canvas) -> None:
         c.drawString(rx + 36, py - 2, item)
         c.setStrokeColor(LINE)
         c.line(rx + 20, py - 12, rx + rw - 20, py - 12)
-        py -= 42
+        py -= 37
     c.setFillColor(INK)
     c.roundRect(rx + 18, ry + 18, rw - 36, 54, 10, fill=1, stroke=0)
     c.setFillColor(LIME)
@@ -535,7 +599,7 @@ def page_method(c: canvas.Canvas) -> None:
     c.drawString(MARGIN + 18, 117, "期待一起把AI能力做成可用产品")
     c.setFont("MSYH", 8)
     c.setFillColor(HexColor("#C5D2D7"))
-    c.drawString(MARGIN + 18, 94, "陈蔚昕 · AI产品经理 / AI创新产品")
+    c.drawString(MARGIN + 18, 94, "陈蔚昕 · AI产品经理｜生成式AI与AI创新")
     links = [
         ("GitHub", "https://github.com/lincoln3079938241-coder"),
         ("Auto-LifeOS", "https://auto-lifeos-demo.streamlit.app/"),
@@ -555,6 +619,377 @@ def page_method(c: canvas.Canvas) -> None:
     c.setFont("MSYH", 6.4)
     c.drawString(390, 67, "仅公开求职邮箱，不展示手机号或其他非必要个人信息。")
     footer(c, 7, 7)
+
+
+def footer_en(c: canvas.Canvas, page_no: int, total: int, label: str = "WEIXIN CHEN · AI Product Manager Portfolio") -> None:
+    footer(c, page_no, total, label)
+
+
+def page_one_en(c: canvas.Canvas) -> None:
+    c.setFillColor(PAPER)
+    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    c.setFillColor(CYAN)
+    c.rect(0, 0, 8, PAGE_H, fill=1, stroke=0)
+    c.setFont("MSYH-Bold", 8)
+    c.drawString(MARGIN, PAGE_H - 46, "AI PRODUCT MANAGER PORTFOLIO")
+    c.setFillColor(INK)
+    c.setFont("MSYH-Bold", 38)
+    c.drawString(MARGIN, PAGE_H - 112, "WEIXIN CHEN")
+    c.setFillColor(BLUE)
+    c.setFont("MSYH-Bold", 16.5)
+    c.drawString(MARGIN, PAGE_H - 148, "AI Product Manager | Generative AI & AI Innovation")
+    text_block(
+        c,
+        "AI product portfolio covering agent workflows, data products, and independently developed prototypes. Experienced in identifying user problems, defining solutions, building functional demos, evaluating product behavior, and iterating with evidence.",
+        MARGIN,
+        PAGE_H - 181,
+        445,
+        size=10.5,
+        leading=16,
+        color=MUTED,
+        max_lines=5,
+    )
+    buttons = [
+        ("English website", SITE_EN_URL, 111),
+        ("GitHub", "https://github.com/lincoln3079938241-coder", 92),
+        ("Auto-LifeOS", "https://auto-lifeos-demo.streamlit.app/", 112),
+        ("Job Radar", "https://shanghai-2027-job-radar-demo.streamlit.app/", 102),
+    ]
+    bx = MARGIN
+    for label, url, width in buttons:
+        link_button(c, label, url, bx, 162, width)
+        bx += width + 9
+    c.setFillColor(MUTED)
+    c.setFont("MSYH", 7)
+    c.drawString(MARGIN, 139, "Claims are limited to repository-verifiable evidence. No fabricated users, interviews, model calls, or business outcomes.")
+
+    rx, ry, rw, rh = 532, 102, 270, 390
+    card(c, rx, ry, rw, rh, fill=white)
+    c.setFillColor(INK)
+    c.setFont("MSYH-Bold", 15)
+    c.drawString(rx + 20, ry + rh - 32, "Capability Map")
+    capabilities = [
+        "AI Product Design",
+        "User Scenario Definition",
+        "Agent Workflow Design",
+        "RAG & Generative AI",
+        "Prototype & Demo Development",
+        "Data Analysis & Evaluation",
+        "AI-Assisted Development",
+    ]
+    py = ry + rh - 66
+    for item in capabilities:
+        c.setFillColor(CYAN)
+        c.circle(rx + 24, py + 2, 2.5, fill=1, stroke=0)
+        c.setFillColor(INK)
+        c.setFont("MSYH-Bold", 8.3)
+        c.drawString(rx + 36, py - 2, item)
+        c.setStrokeColor(LINE)
+        c.line(rx + 20, py - 12, rx + rw - 20, py - 12)
+        py -= 37
+    c.setFillColor(INK)
+    c.roundRect(rx + 18, ry + 18, rw - 36, 54, 10, fill=1, stroke=0)
+    c.setFillColor(LIME)
+    c.setFont("MSYH-Bold", 7)
+    c.drawString(rx + 30, ry + 54, "FOCUS")
+    c.setFillColor(white)
+    c.setFont("MSYH-Bold", 9.2)
+    c.drawString(rx + 30, ry + 35, "AI agents × data products × automotive AI")
+    footer_en(c, 1, 7)
+
+
+def page_auto_product_en(c: canvas.Canvas) -> None:
+    y = title(c, "01 / CORE CASE · AI AGENT", "Auto-LifeOS", "Turns a meal request into an executable workflow with validation, two-stage confirmation, and transactional inventory updates.")
+    cw = (PAGE_W - 2 * MARGIN - 20) / 3
+    card_text_en(c, MARGIN, y - 104, cw, 94, "USER PROBLEM", "Advice ignores inventory", "Users still verify stock, expiry, dietary restrictions, and actual quantities.")
+    card_text_en(c, MARGIN + cw + 10, y - 104, cw, 94, "PRODUCT GOAL", "Make advice executable", "Retrieval and deterministic rules run before two confirmations authorize an inventory transaction.")
+    card_text_en(c, MARGIN + (cw + 10) * 2, y - 104, cw, 94, "PUBLIC BOUNDARY", "Mock Provider, no private key", "The public demo does not call GPT or Qwen; user, inventory, knowledge, and test data are synthetic or sample data.")
+
+    sy = y - 338
+    shot_w, shot_h = 188, 101
+    image_fit(c, ASSETS / "screenshots" / "auto-01-home.jpg", MARGIN, sy + 108, shot_w, shot_h)
+    image_fit(c, ASSETS / "screenshots" / "auto-02-result.jpg", MARGIN + 197, sy + 108, shot_w, shot_h)
+    image_fit(c, ASSETS / "screenshots" / "auto-03-confirm.jpg", MARGIN, sy, shot_w, shot_h)
+    image_fit(c, ASSETS / "screenshots" / "auto-04-update.jpg", MARGIN + 197, sy, shot_w, shot_h)
+    c.setFillColor(MUTED)
+    c.setFont("MSYH", 6.4)
+    c.drawString(MARGIN + 8, sy - 12, "Public demo screens: request - plan - second confirmation - inventory transaction result")
+
+    c.setFillColor(INK)
+    c.setFont("MSYH-Bold", 12)
+    c.drawString(445, y - 132, "Core product behavior")
+    bullets(
+        c,
+        [
+            "LangGraph node orchestration, conditional routing, validation retry, and exception fallback",
+            "TF-IDF knowledge retrieval with a structured MealPlan",
+            "Deterministic checks for allergies, exclusions, expiry, units, and quantities",
+            "Two-stage confirmation for the plan and actual quantities",
+            "Atomic SQLite inventory transactions, audit records, and undo",
+        ],
+        445,
+        y - 155,
+        345,
+        size=7.4,
+        leading=11.2,
+    )
+    px = 445
+    for txt in ["61 public tests", "27 core tests", "28 demo recipes"]:
+        px += pill(c, txt, px, sy + 30, fill=WARM, color=BLUE) + 7
+    c.setFont("MSYH-Bold", 9)
+    c.setFillColor(INK)
+    c.drawString(MARGIN, 66, "User flow")
+    flow(c, ["Request", "Intent", "Retrieve", "Validate", "Confirm twice", "Transaction", "Trace & undo"], MARGIN, 34, PAGE_W - 2 * MARGIN, h=28)
+    c.linkURL("https://auto-lifeos-demo.streamlit.app/", (PAGE_W - 180, PAGE_H - 82, PAGE_W - MARGIN, PAGE_H - 46), relative=0)
+    footer_en(c, 2, 7)
+
+
+def page_auto_evaluation_en(c: canvas.Canvas) -> None:
+    y = title(c, "01 / CORE CASE · DECISIONS & EVALUATION", "Auto-LifeOS: Product Decisions", "The provider proposes a plan; deterministic rules, confirmation, and database transactions control execution and side effects.")
+    bw = (PAGE_W - 2 * MARGIN - 24) / 3
+    card_text_en(c, MARGIN, y - 118, bw, 108, "PROVIDER / MOCK", "Propose a structured plan", "Interpret the request, organize retrieval evidence, and output a candidate MealPlan without inventory write access.", fill=PALE)
+    card_text_en(c, MARGIN + bw + 12, y - 118, bw, 108, "RULES", "Control executability", "Pydantic and Python check allergies, exclusions, expiry, units, quantities, and nutrition ranges.", fill=PALE)
+    card_text_en(c, MARGIN + (bw + 12) * 2, y - 118, bw, 108, "TRANSACTION", "Control side effects", "After two confirmations, SQLite updates atomically. Failures roll back and successful results support undo.", fill=WARM)
+    panel_y, panel_h = y - 346, 208
+    card(c, MARGIN, panel_y, 365, panel_h, fill=white)
+    c.setFillColor(CYAN); c.setFont("MSYH-Bold", 7); c.drawString(MARGIN + 14, panel_y + panel_h - 20, "KEY PRODUCT DECISIONS")
+    c.setFillColor(INK); c.setFont("MSYH-Bold", 11); c.drawString(MARGIN + 14, panel_y + panel_h - 42, "Four decisions create the demo loop")
+    bullets(c, [
+        "Keep validation outside generation so safety boundaries remain explainable and regression-testable.",
+        "Confirm the plan first, then confirm actual quantities before any inventory side effect.",
+        "Make updates atomic and reversible, treating recovery as a product capability.",
+        "Use a Mock Provider in public so the demo is stable without claiming a live model call.",
+    ], MARGIN + 14, panel_y + panel_h - 66, 336, size=7, leading=10.5)
+    card(c, 416, panel_y, 387, panel_h, fill=white)
+    c.setFillColor(CYAN); c.setFont("MSYH-Bold", 7); c.drawString(430, panel_y + panel_h - 20, "SYNTHETIC USABILITY EVALUATION")
+    c.setFillColor(INK); c.setFont("MSYH-Bold", 11); c.drawString(430, panel_y + panel_h - 42, "Task walkthroughs, not user research")
+    personas = [
+        "Single professional | quick meal | checks process clarity and available stock",
+        "Fitness-focused user | high protein | checks rationale and adjustable portions",
+        "User with allergies | exclude peanuts | checks that rules block conflicts early",
+        "Household inventory owner | shared use | checks quantities, audit trail, and undo",
+    ]
+    bullets(c, personas, 430, panel_y + panel_h - 66, 355, size=6.9, leading=10.2)
+    card(c, MARGIN, 34, PAGE_W - 2 * MARGIN, 86, fill=INK, stroke=INK)
+    c.setFillColor(LIME); c.setFont("MSYH-Bold", 7); c.drawString(MARGIN + 14, 98, "PROTOTYPE COMPARISON · NOT A LIVE A/B TEST")
+    c.setFillColor(white); c.setFont("MSYH-Bold", 9); c.drawString(MARGIN + 14, 78, "Version A: one confirmation, low detail  vs  Version B: two confirmations, inventory preview, and undo")
+    text_block(c, "Version B is the selected direction. It adds one confirmation but makes validation and inventory effects visible. Automated tests cover routing, rule boundaries, confirmation, transaction atomicity, undo, and session isolation. There are no real-user interviews or live A/B results.", MARGIN + 14, 59, PAGE_W - 2 * MARGIN - 28, size=6.9, leading=10.2, color=HexColor("#C6D3D8"), max_lines=3)
+    footer_en(c, 3, 7)
+
+
+def page_radar_en(c: canvas.Canvas) -> None:
+    y = title(c, "02 / 0->1 DATA PRODUCT", "2027 Graduate Job Radar", "Turns fragmented recruitment entry points into a traceable, filterable, and reviewable job-information list.")
+    radar_y = y - 252
+    image_fit(c, ASSETS / "screenshots" / "radar-01-home.jpg", MARGIN, radar_y + 116, 190, 108)
+    image_fit(c, ASSETS / "screenshots" / "radar-02-filter.jpg", MARGIN + 200, radar_y + 116, 190, 108)
+    image_fit(c, ASSETS / "screenshots" / "radar-03-sources.jpg", MARGIN, radar_y, 190, 108)
+    image_fit(c, ASSETS / "screenshots" / "radar-04-quality.jpg", MARGIN + 200, radar_y, 190, 108)
+    c.setFont("MSYH", 6.4)
+    c.setFillColor(MUTED)
+    c.drawString(MARGIN + 8, y - 268, "Public demo screens: home · filters · source verification · data quality")
+    c.setFillColor(INK)
+    c.setFont("MSYH-Bold", 12)
+    c.drawString(450, y - 5, "User problem and product value")
+    problems = [
+        ("PAIN POINT", "High search cost", "Company, public-employment, and university entry points are scattered."),
+        ("PAIN POINT", "Details are easy to miss", "Location, function, stage, and degree limits lack consistent fields."),
+        ("DATA PROBLEM", "Source status is unclear", "Reposts may be duplicated or stale; source and time must remain visible."),
+        ("PRODUCT VALUE", "Structure once, filter often", "Convert public leads into a structured list and reduce repeated work."),
+    ]
+    py = y - 35
+    for label, heading, body in problems:
+        card_text_en(c, 450, py - 69, 352, 62, label, heading, body, body_size=6.7, body_lines=2)
+        py -= 70
+    c.setFont("MSYH-Bold", 9)
+    c.setFillColor(INK)
+    c.drawString(MARGIN, 95, "Data flow")
+    flow(c, ["Public sources", "Collect/import", "Normalize", "Deduplicate", "Rule filters", "Quality notice", "Source review"], MARGIN, 62, PAGE_W - 2 * MARGIN, h=27)
+    c.setFillColor(GOLD_BG)
+    c.setStrokeColor(GOLD_BG)
+    c.roundRect(MARGIN, 32, PAGE_W - 2 * MARGIN, 21, 7, fill=1, stroke=0)
+    c.setFont("MSYH", 6.7)
+    c.setFillColor(GOLD)
+    c.drawString(MARGIN + 10, 39, "Boundary: data automation, rule-based filtering, information management, and product presentation - no agent, LLM, recommendation, or success score.")
+    c.linkURL("https://shanghai-2027-job-radar-demo.streamlit.app/", (PAGE_W - 180, PAGE_H - 82, PAGE_W - MARGIN, PAGE_H - 46), relative=0)
+    footer_en(c, 4, 7)
+
+
+def drive_page_one_en(c: canvas.Canvas, page_no: int, total: int, *, concept_only=False) -> None:
+    y = title(c, "03 / CONCEPT PROPOSAL · NOT LAUNCHED", "DriveMate", "A multi-agent, multimodal mobility and vehicle-status assistant for commuters, families, and long-distance drivers.")
+    c.setFillColor(GOLD_BG)
+    c.setStrokeColor(GOLD_BG)
+    c.roundRect(PAGE_W - 245, PAGE_H - 72, 207, 23, 10, fill=1, stroke=0)
+    c.setFillColor(GOLD)
+    c.setFont("MSYH-Bold", 7.2)
+    c.drawCentredString(PAGE_W - 141.5, PAGE_H - 64, "Concept Proposal / Open static prototype")
+    c.linkURL(f"{SITE_EN_URL}drivemate.html", (PAGE_W - 245, PAGE_H - 72, PAGE_W - 38, PAGE_H - 49), relative=0)
+    pw = (PAGE_W - 2 * MARGIN - 24) / 4
+    pains = [
+        ("PAIN 01", "Fragmented trip context", "Maps, weather, schedule, and passenger needs are handled separately."),
+        ("PAIN 02", "Vehicle status is opaque", "Battery, tire pressure, and maintenance data need plain-language explanation."),
+        ("PAIN 03", "Charging is hard to coordinate", "Route, stations, stop duration, and arrival goals must be planned together."),
+        ("PAIN 04", "Compound tasks break apart", "Traditional voice flows struggle to coordinate work across several tools."),
+    ]
+    for idx, p in enumerate(pains):
+        card_text_en(c, MARGIN + idx * (pw + 8), y - 91, pw, 82, *p, heading_size=8.2, body_size=6.5, body_lines=3)
+    card(c, MARGIN, y - 296, 230, 184, fill=INK, stroke=INK)
+    c.setFillColor(LIME)
+    c.setFont("MSYH-Bold", 7)
+    c.drawString(MARGIN + 16, y - 140, "ORCHESTRATOR")
+    c.setFillColor(white)
+    c.setFont("MSYH-Bold", 14)
+    c.drawString(MARGIN + 16, y - 168, "DriveMate Orchestrator")
+    text_block(c, "Decomposes the task, coordinates specialist agents, selects tools, separates facts from inference, and asks for confirmation before key actions.", MARGIN + 16, y - 193, 195, size=7.7, leading=12, color=HexColor("#C5D2D7"), max_lines=6)
+    agents = [
+        ("Trip Planning Agent", "map / traffic / weather"),
+        ("Vehicle Status Agent", "battery / tires / maintenance"),
+        ("Charging Agent", "range / stations / stop time"),
+        ("Schedule Agent", "calendar / departure reminder"),
+        ("Emergency Support Agent", "exception explanation / service"),
+    ]
+    ax, ay, aw, ah = 285, y - 190, 247, 76
+    for idx, (name, tools) in enumerate(agents):
+        row, col = divmod(idx, 2)
+        xi = ax + col * (aw + 10)
+        yi = ay - row * (ah + 8)
+        if idx == 4:
+            xi, yi, aw2 = ax, ay - 2 * (ah + 8), 504
+        else:
+            aw2 = aw
+        card(c, xi, yi, aw2, ah, fill=white)
+        c.setFillColor(INK)
+        c.setFont("MSYH-Bold", 8.8)
+        c.drawString(xi + 12, yi + 45, name)
+        c.setFillColor(MUTED)
+        c.setFont("MSYH", 7.1)
+        c.drawString(xi + 12, yi + 23, tools)
+    layer_w = (PAGE_W - 2 * MARGIN - 16) / 3
+    layers = [
+        ("Multimodal inputs", "voice/text · vehicle status · map/weather · conceptual visual input"),
+        ("Agent orchestration", "task split · tool aggregation · fact/inference separation · risk tiering"),
+        ("Safe outputs", "explainable plan · timestamps · confirmation · professional service"),
+    ]
+    for idx, (head, body) in enumerate(layers):
+        xi = MARGIN + idx * (layer_w + 8)
+        card(c, xi, 32, layer_w, 68, fill=PALE if idx < 2 else WARM)
+        c.setFillColor(CYAN); c.setFont("MSYH-Bold", 6.5); c.drawString(xi + 10, 82, f"LAYER {idx + 1}")
+        c.setFillColor(INK); c.setFont("MSYH-Bold", 8.5); c.drawString(xi + 10, 65, head)
+        text_block(c, body, xi + 10, 49, layer_w - 20, size=6.3, leading=9.2, color=MUTED, max_lines=2)
+    c.setFillColor(GOLD); c.setFont("MSYH", 6.2)
+    c.drawRightString(PAGE_W - MARGIN, 108, "Static concept: no camera, vehicle sensor, real VLA model, or vehicle-control integration")
+    c.setFillColor(BLUE)
+    c.setFont("MSYH-Bold", 6.5)
+    c.drawString(MARGIN, 108, "English portfolio")
+    c.linkURL(SITE_EN_URL, (MARGIN, 104, MARGIN + 78, 116), relative=0)
+    footer_en(c, page_no, total, "DriveMate · Concept Proposal" if concept_only else "WEIXIN CHEN · AI Product Manager Portfolio")
+
+
+def drive_page_two_en(c: canvas.Canvas, page_no: int, total: int, *, concept_only=False) -> None:
+    y = title(c, "03 / CONCEPT PROPOSAL · SCENARIOS & ROADMAP", "DriveMate: Scenarios, Safety, and VLA Roadmap", "All vehicle, map, weather, calendar, vision, and charging capabilities are proposed scope - not integrated APIs or models.")
+    c.linkURL(f"{SITE_EN_URL}drivemate.html", (MARGIN, PAGE_H - 132, PAGE_W - MARGIN, PAGE_H - 46), relative=0)
+    sw = (PAGE_W - 2 * MARGIN - 16) / 3
+    scenarios = [
+        ("SCENARIO 01", "Heavy Rain & Flooding", "Combine weather, route, and range. Do not assess water depth or instruct driving through water."),
+        ("SCENARIO 02", "Family Road Trip", "Work backward from lunch, passenger breaks, and charging alternatives to a departure plan."),
+        ("SCENARIO 03", "Abnormal Tire Pressure", "Pause trip planning and prioritize safe inspection and professional service options."),
+    ]
+    for idx, item in enumerate(scenarios):
+        card_text_en(c, MARGIN + idx * (sw + 8), y - 91, sw, 80, *item, fill=white, heading_size=8.6, body_size=6.5, body_lines=3)
+    panel_y, panel_h = y - 229, 122
+    card(c, MARGIN, panel_y, 365, panel_h, fill=white)
+    c.setFillColor(CYAN); c.setFont("MSYH-Bold", 7); c.drawString(MARGIN + 14, panel_y + panel_h - 18, "SAFETY BOUNDARY")
+    bullets(c, ["No high-risk vehicle control; confirm key actions", "Separate facts, stale data, and model inference", "Prioritize safe inspection or professional support", "State information gaps instead of inventing facts"], MARGIN + 14, panel_y + panel_h - 39, 335, size=7, leading=10.4)
+    card(c, 416, panel_y, 387, panel_h, fill=white)
+    c.setFillColor(CYAN); c.setFont("MSYH-Bold", 7); c.drawString(430, panel_y + panel_h - 18, "PLANNED EVALUATION · NOT RESULTS")
+    mx, my = 430, panel_y + panel_h - 46
+    for metric in ["Task completion", "Tool-call accuracy", "Factual consistency", "Confirmation count", "Response time", "User satisfaction", "High-risk error rate"]:
+        mw = pill(c, metric, mx, my, fill=PALE, color=BLUE, h=18)
+        mx += mw + 6
+        if mx > 746:
+            mx = 430
+            my -= 25
+    c.setFillColor(MUTED); c.setFont("MSYH", 6.4); c.drawString(430, panel_y + 12, "These are proposed concept metrics, not deployed-product results.")
+
+    c.setFillColor(INK); c.setFont("MSYH-Bold", 10); c.drawString(MARGIN, panel_y - 23, "Static low-fidelity interface")
+    wx, wy, ww, wh = MARGIN, 115, PAGE_W - 2 * MARGIN, 112
+    card(c, wx, wy, ww, wh, fill=PAPER, stroke=INK, radius=12)
+    card(c, wx + 10, wy + 10, 185, wh - 20, fill=white)
+    c.setFillColor(CYAN); c.setFont("MSYH-Bold", 6.5); c.drawString(wx + 22, wy + wh - 29, "VEHICLE & CONTEXT")
+    for idx, line in enumerate(["Battery 68% · sample", "Weather: heavy rain · sample", "Tire pressure: normal · sample"]):
+        c.setFillColor(INK); c.setFont("MSYH", 7); c.drawString(wx + 22, wy + wh - 48 - idx * 17, line)
+    main_x = wx + 205
+    card(c, main_x, wy + 10, ww - 215, wh - 20, fill=white)
+    c.setFillColor(INK); c.setFont("MSYH-Bold", 9); c.drawString(main_x + 13, wy + wh - 28, "Heavy Rain & Flooding · Airport Pickup")
+    c.setFillColor(MUTED); c.setFont("MSYH", 6.6); c.drawString(main_x + 13, wy + wh - 46, "Leave 25 minutes early · prefer elevated roads · retain 20% range")
+    c.setFillColor(GOLD_BG); c.roundRect(main_x + 13, wy + 34, ww - 243, 24, 6, fill=1, stroke=0)
+    c.setFillColor(GOLD); c.setFont("MSYH", 6.3); c.drawString(main_x + 23, wy + 43, "High risk: cannot assess water depth; recommend rerouting only.")
+    c.setFillColor(INK); c.roundRect(main_x + 13, wy + 10, ww - 243, 18, 5, fill=1, stroke=0)
+    c.setFillColor(white); c.setFont("MSYH-Bold", 6.3); c.drawCentredString(main_x + (ww - 217) / 2, wy + 16, "Confirm reminder draft · static demo")
+
+    c.setFillColor(INK); c.setFont("MSYH-Bold", 9); c.drawString(MARGIN, 91, "Physical AI / VLA staged roadmap")
+    stages = [
+        ("0 CURRENT", "Static concept and synthetic scenarios"),
+        ("1 READ-ONLY", "Authorized vehicle data and tool evaluation"),
+        ("2 MULTIMODAL", "Offline vision-language risk evaluation"),
+        ("3 CONTROLLED", "Closed setting, low risk, human confirmation"),
+    ]
+    stage_w = (PAGE_W - 2 * MARGIN - 18) / 4
+    for idx, (head, body) in enumerate(stages):
+        xi = MARGIN + idx * (stage_w + 6)
+        card(c, xi, 35, stage_w, 46, fill=PALE if idx else white)
+        c.setFillColor(CYAN if idx else MUTED); c.setFont("MSYH-Bold", 6.5); c.drawString(xi + 9, 65, head)
+        text_block(c, body, xi + 9, 48, stage_w - 18, size=6.1, leading=8.5, color=INK, max_lines=2)
+    footer_en(c, page_no, total, "DriveMate · Concept Proposal" if concept_only else "WEIXIN CHEN · AI Product Manager Portfolio")
+
+
+def page_method_en(c: canvas.Canvas) -> None:
+    y = title(c, "PRODUCT METHOD · CONTACT", "Product Method", "Use a verifiable MVP to shorten the distance between an idea and product evidence.")
+    flow(c, ["Discover", "Define scenario", "Scope MVP", "Build demo", "Evaluate", "Analyze bad cases", "Iterate"], MARGIN, y - 53, PAGE_W - 2 * MARGIN, h=36)
+    methods = [
+        ("01", "Discover the problem", "Identify why users are blocked by the current state."),
+        ("02", "Define the scenario", "Specify the user, moment, and constraints."),
+        ("03", "Scope the MVP", "Keep the shortest loop and explicit safety boundaries."),
+        ("04", "Build the demo", "Turn the critical flow into operable evidence."),
+        ("05", "Evaluate", "Test tasks, rules, and outcomes."),
+        ("06", "Analyze bad cases", "Classify failures to locate product or system issues."),
+        ("07", "Iterate", "Run regression checks before the next cycle."),
+    ]
+    mw = (PAGE_W - 2 * MARGIN - 18) / 4
+    for idx, item in enumerate(methods):
+        row, col = divmod(idx, 4)
+        x = MARGIN + col * (mw + 6)
+        yy = y - 158 - row * 92
+        card_text_en(c, x, yy, mw, 82, item[0], item[1], item[2], fill=white, heading_size=8.5, body_size=6.8, body_lines=3)
+    card(c, MARGIN, 48, PAGE_W - 2 * MARGIN, 118, fill=INK, stroke=INK)
+    c.setFillColor(LIME)
+    c.setFont("MSYH-Bold", 7)
+    c.drawString(MARGIN + 18, 143, "CONTACT & LINKS")
+    c.setFillColor(white)
+    c.setFont("MSYH-Bold", 14)
+    c.drawString(MARGIN + 18, 117, "Let's turn AI capabilities into useful products")
+    c.setFont("MSYH", 8)
+    c.setFillColor(HexColor("#C5D2D7"))
+    c.drawString(MARGIN + 18, 94, "WEIXIN CHEN · AI Product Manager | Generative AI & AI Innovation")
+    links = [
+        ("Website", SITE_EN_URL),
+        ("GitHub", "https://github.com/lincoln3079938241-coder"),
+        ("Auto-LifeOS", "https://auto-lifeos-demo.streamlit.app/"),
+        ("Job Radar", "https://shanghai-2027-job-radar-demo.streamlit.app/"),
+        ("Email", "mailto:Lincoln3079938241@163.com"),
+    ]
+    lx = 388
+    for label, url in links:
+        c.setFillColor(HexColor("#20343E"))
+        c.roundRect(lx, 85, 75, 37, 8, fill=1, stroke=0)
+        c.setFillColor(white)
+        c.setFont("MSYH-Bold", 7)
+        c.drawCentredString(lx + 37.5, 99, label)
+        c.linkURL(url, (lx, 85, lx + 75, 122), relative=0)
+        lx += 81
+    c.setFillColor(HexColor("#9FB1B8"))
+    c.setFont("MSYH", 6.4)
+    c.drawString(388, 67, "Public recruitment email only. No phone number or unnecessary personal data is included.")
+    footer_en(c, 7, 7)
 
 
 def build_portfolio() -> None:
@@ -586,10 +1021,45 @@ def build_concept() -> None:
     c.save()
 
 
+def build_portfolio_en() -> None:
+    c = canvas.Canvas(str(PORTFOLIO_EN_PDF), pagesize=(PAGE_W, PAGE_H), pageCompression=1)
+    c.setTitle("WEIXIN CHEN - AI Product Manager Portfolio")
+    c.setAuthor("WEIXIN CHEN")
+    c.setSubject("AI product management portfolio")
+    for fn in [
+        page_one_en,
+        page_auto_product_en,
+        page_auto_evaluation_en,
+        page_radar_en,
+        lambda cv: drive_page_one_en(cv, 5, 7),
+        lambda cv: drive_page_two_en(cv, 6, 7),
+        page_method_en,
+    ]:
+        fn(c)
+        c.showPage()
+    c.save()
+
+
+def build_concept_en() -> None:
+    c = canvas.Canvas(str(CONCEPT_EN_PDF), pagesize=(PAGE_W, PAGE_H), pageCompression=1)
+    c.setTitle("DriveMate - Concept Proposal")
+    c.setAuthor("WEIXIN CHEN")
+    c.setSubject("Automotive AI product concept")
+    drive_page_one_en(c, 1, 2, concept_only=True)
+    c.showPage()
+    drive_page_two_en(c, 2, 2, concept_only=True)
+    c.showPage()
+    c.save()
+
+
 if __name__ == "__main__":
     register_fonts()
     ASSETS.mkdir(parents=True, exist_ok=True)
     build_portfolio()
     build_concept()
+    build_portfolio_en()
+    build_concept_en()
     print(PORTFOLIO_PDF)
     print(CONCEPT_PDF)
+    print(PORTFOLIO_EN_PDF)
+    print(CONCEPT_EN_PDF)

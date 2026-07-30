@@ -5,55 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="DriveMate：面向车主的多Agent智能出行与车况助手创新产品概念方案。未开发上线，不连接真实车辆或外部API。">
   <title>DriveMate｜AI+汽车创新产品概念方案</title>
+  <link rel="canonical" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/drivemate.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/drivemate.html">
+  <link rel="alternate" hreflang="en" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/en/drivemate.html">
+  <link rel="alternate" hreflang="x-default" href="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/drivemate.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DriveMate｜AI+汽车创新产品概念方案">
+  <meta property="og:description" content="多Agent智能出行与车况助手概念方案；静态原型，不连接真实车辆或外部API。">
+  <meta property="og:url" content="https://lincoln3079938241-coder.github.io/weixin-ai-product-portfolio/drivemate.html">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .concept-shell{width:min(1180px,calc(100% - 2rem));margin:1rem auto 4rem}
-    .concept-hero,.concept-block{padding:clamp(1.3rem,4vw,3rem);border:1px solid var(--line);background:#fff;border-radius:20px;margin-bottom:1rem}
-    .concept-banners{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.5rem}
-    .concept-banner{padding:.45rem .7rem;border:1px solid #dfc564;border-radius:999px;background:#fff4c6;color:#624b00;font-size:.76rem;font-weight:750}
-    .concept-banner.neutral{border-color:#98b9b6;background:#edf7f6;color:#175956}
-    .concept-hero h1{font-size:clamp(3.6rem,10vw,7.5rem);margin:.4rem 0}
-    .concept-summary{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
-    .concept-summary article{padding:1.15rem;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
-    .concept-summary h3{margin:.2rem 0 .5rem}.concept-summary p{margin:0;color:var(--muted)}
-    .layer-stack{display:grid;gap:.75rem;margin:1.4rem 0}
-    .layer{padding:1rem;border:1px solid var(--line);border-radius:14px;background:#fff}
-    .layer.core{border-color:#5aa8a3;background:#eaf4f3}
-    .layer.output{background:var(--warm)}
-    .layer-head{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.7rem}
-    .layer-head span{color:var(--cyan);font:760 .72rem Arial,sans-serif;letter-spacing:.08em}
-    .node-row{display:flex;flex-wrap:wrap;gap:.5rem}
-    .node-row span{padding:.48rem .65rem;border:1px solid #c9d8dc;border-radius:8px;background:#fff;font-size:.8rem}
-    .architecture-note{color:var(--muted);font-size:.84rem}
-    .scenario-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0}
-    .scenario-tab{padding:.65rem .8rem;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}
-    .scenario-tab[aria-pressed="true"]{border-color:var(--cyan);background:var(--ink);color:#fff}
-    .prototype{display:grid;grid-template-columns:250px 1fr;gap:1rem;padding:1rem;border:2px solid var(--ink);border-radius:18px;background:#f4f8f7}
-    .proto-side,.proto-main{padding:1rem;border:1px solid #aebec4;border-radius:12px;background:#fff}
-    .proto-side h4,.proto-main h4{margin:.1rem 0 .7rem}
-    .state-list{display:grid;gap:.5rem}
-    .state-row{display:flex;justify-content:space-between;gap:.6rem;padding:.52rem .6rem;border-radius:8px;background:#f0f5f4;font-size:.78rem}
-    .state-row b{text-align:right}
-    .source-list{display:flex;flex-wrap:wrap;gap:.35rem;margin:.75rem 0}
-    .source-list span{padding:.3rem .45rem;border-radius:6px;background:#e7f2f1;font-size:.7rem}
-    .plan-list{margin:.7rem 0;padding-left:1.25rem;color:#334b55}
-    .plan-list li{margin:.45rem 0}
-    .risk-card{padding:.8rem;border-left:4px solid #d39a00;background:#fff4cf;border-radius:0 8px 8px 0}
-    .confirm-zone{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line)}
-    .confirm-zone button{padding:.7rem .9rem;border:0;border-radius:8px;background:var(--ink);color:#fff;cursor:pointer}
-    .roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin-top:1rem}
-    .roadmap article{padding:1rem;border-top:3px solid var(--cyan);background:#fff}
-    .roadmap article:first-child{border-color:#9aa9ae}
-    .roadmap span{color:var(--cyan);font:760 .7rem Arial,sans-serif}.roadmap p{color:var(--muted);font-size:.82rem}
-    @media(max-width:800px){.concept-summary,.prototype{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr 1fr}.concept-shell{width:min(100% - 1rem,1180px)}}
-    @media(max-width:520px){.roadmap{grid-template-columns:1fr}.confirm-zone{align-items:flex-start;flex-direction:column}.scenario-tab{width:100%;text-align:left}}
-  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">DM</span><span>返回作品集</span></a>
-    <nav aria-label="页面导航"><a href="#prototype">静态原型</a><a href="#roadmap">VLA路线</a><a class="nav-cta" href="assets/DriveMate-Concept-Proposal.pdf">下载2页PDF</a></nav>
+    <a class="brand" href="index.html"><span class="brand-mark">DM</span><span class="brand-label">返回作品集</span></a>
+    <nav aria-label="页面导航"><a href="#prototype">静态原型</a><a href="#roadmap">VLA路线</a><a class="language-switch" href="en/drivemate.html" lang="en" hreflang="en" aria-label="Switch to English">EN</a><a class="nav-cta" href="assets/DriveMate-Concept-Proposal.pdf">下载2页PDF</a></nav>
   </header>
 
   <main id="main" class="concept-shell">
